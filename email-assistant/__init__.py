@@ -1,0 +1,1 @@
+# Make email-assistant directory a Python package

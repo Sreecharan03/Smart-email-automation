@@ -1,0 +1,19 @@
+{
+  "name": "ckg",
+  "version": "1.0.0",
+  "entry": "start.sh",
+  "entry_windows": "start.bat",
+  "args": [],
+  "contributes": {},
+  "connections": [
+    {
+      "socket": {
+        "port": 50000
+      }
+    }
+  ],
+  "protocol": [],
+  "env": {
+    "LD_LIBRARY_PATH": "./binary"
+  }
+}

@@ -1,0 +1,184 @@
+# ====================================
+# UNIFIED AI EMAIL ASSISTANT - REQUIREMENTS
+# ====================================
+# Core Dependencies for Phase 1-6 Implementation
+# Install with: pip install -r requirements.txt
+
+# ====================================
+# WEB FRAMEWORK & API
+# ====================================
+# FastAPI for backend API development
+fastapi
+uvicorn[standard]
+pydantic
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
+
+# ====================================
+# DATABASE & ORM
+# ====================================
+# PostgreSQL and SQLAlchemy for data storage
+sqlalchemy
+psycopg2-binary
+alembic
+
+# ====================================
+# GOOGLE APIs & AUTHENTICATION
+# ====================================
+# Gmail API and Google OAuth integration
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-generativeai
+
+# ====================================
+# MICROSOFT GRAPH API
+# ====================================
+# Outlook email integration via Microsoft Graph
+msgraph-sdk
+azure-identity
+msal
+
+# ====================================
+# LANGCHAIN & LANGGRAPH
+# ====================================
+# LLM orchestration and multi-agent workflows
+langchain
+langchain-google-genai
+langgraph
+langchain-community
+
+# ====================================
+# VECTOR DATABASE & SEARCH
+# ====================================
+# Qdrant for semantic search and embeddings
+qdrant-client
+sentence-transformers
+numpy
+
+# ====================================
+# TEXT PROCESSING & SEARCH
+# ====================================
+# Email parsing and hybrid search
+
+beautifulsoup4
+# ====================================
+# FRONTEND & UI
+# ====================================
+# Streamlit for web interface
+streamlit
+streamlit-option-menu
+streamlit-authenticator
+plotly
+
+# ====================================
+# SCHEDULING & BACKGROUND TASKS
+# ====================================
+# Task scheduling for daily summaries
+apscheduler
+celery[redis]
+redis
+
+# ====================================
+# UTILITIES & HELPERS
+# ====================================
+# Configuration and utility libraries
+python-dotenv
+pyyaml
+requests
+httpx
+aiohttp
+
+# ====================================
+# SECURITY & ENCRYPTION
+# ====================================
+# Token encryption and security
+
+# ====================================
+# DATE & TIME HANDLING
+# ====================================
+# Timezone and datetime processing
+
+
+# ====================================
+# DATA PROCESSING
+# ====================================
+# JSON and data manipulation
+# ====================================
+# LOGGING & MONITORING
+# ====================================
+# Application logging and monitoring
+loguru==0.7.2
+sentry-sdk==1.38.0
+
+# ====================================
+# TESTING (Development)
+# ====================================
+# Testing frameworks for development
+
+httpx
+faker
+
+# ====================================
+# EMAIL PARSING & MIME
+# ====================================
+# Advanced email handling
+email-validator
+html2text
+premailer
+
+# ====================================
+# ASYNC & CONCURRENCY
+# ====================================
+# Asynchronous programming support
+
+
+# ====================================
+# CORS & MIDDLEWARE
+# ====================================
+# Cross-origin and middleware support
+fastapi-cors
+starlette
+
+# ====================================
+# DEVELOPMENT TOOLS
+# ====================================
+# Code formatting and development aids
+
+# ENVIRONMENT SPECIFIC
+# ====================================
+# Lightning AI Studio specific packages
+# (These might be pre-installed in the environment)
+
+gTTS
+
+# Advanced NLP for better text processing
+# spacy==3.7.2
+# transformers==4.35.2
+
+# Image processing for email attachments
+# Pillow==10.1.0
+
+# Excel/CSV export for summaries
+# openpyxl==3.1.2
+# xlsxwriter==3.1.9
+
+# ====================================
+# VERSION LOCKS (Critical Dependencies)
+# ====================================
+# These versions are tested and compatible
+# langchain>=0.1.0,<0.2.0
+# fastapi>=0.100.0,<0.110.0
+# pydantic>=2.0.0,<3.0.0
+# sqlalchemy>=2.0.0,<2.1.0
+
+# ====================================
+# INSTALLATION NOTES
+# ====================================
+# 1. Create virtual environment: python -m venv venv
+# 2. Activate virtual environment: source venv/bin/activate (Linux/Mac) or venv\Scripts\activate (Windows)
+# 3. Upgrade pip: pip install --upgrade pip
+# 4. Install dependencies: pip install -r requirements.txt
+# 5. Set environment variables from .env file

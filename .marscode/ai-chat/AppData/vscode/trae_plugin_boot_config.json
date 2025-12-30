@@ -1,0 +1,42 @@
+{
+  "agent": {
+    "domain": "https://a0ai.marscode.cn",
+    "appId": "a4c6c500-6846-45b6-94f6-1b231eb53742",
+    "misc": {
+      "ideCn": "ide.byted.org",
+      "ideUs": "ide-us.byted.org",
+      "bytegate": "https://bytegate.zijieapi.com",
+      "iac": "https://iac.byted.org"
+    }
+  },
+  "ckg": {
+    "domain": "https://a0ai.marscode.cn"
+  },
+  "tea": {
+    "appId": 576092,
+    "libraDomain": "https://abtestvm.bytedance.com",
+    "channelDomain": "https://mcs.zijieapi.com",
+    "engine": "tea",
+    "supportChangeAppId": true,
+    "appKey": ""
+  },
+  "slardar": {
+    "aid": 0,
+    "bid": "MarsCode",
+    "token": "",
+    "engine": "slardar",
+    "supportChangeInstance": true,
+    "domain": "https://mon.zijieapi.com"
+  },
+  "isNetworkBytedance": false,
+  "ttnet": {
+    "appId": "801256",
+    "httpDNS": "dig.bdurl.net",
+    "netLog": "crash.snssdk.com",
+    "domainBOE": "",
+    "tncHost": "tnc3-bjlgy.zijieapi.com"
+  },
+  "ws": {
+    "domain": ""
+  }
+}

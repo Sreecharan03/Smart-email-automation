@@ -1,0 +1,693 @@
+2025-12-07T04:18:13.730Z	INFO	logs/logger.go:38	CodeKG process 1
+2025-12-07T04:18:13.730Z	INFO	logs/logger.go:38	CKG local embedding: true, embedding storage type is sqlite_vec
+2025-12-07T04:18:13.730Z	INFO	logs/logger.go:38	ckg version is 0.0.112
+2025-12-07T04:18:13.731Z	INFO	logs/logger.go:38	server start at 51007
+2025-12-07T04:18:13.731Z	INFO	logs/logger.go:38	tea report using default url
+2025-12-07T04:18:13.731Z	INFO	logs/logger.go:61	02176508109372800000000000000000000000000000000d2bd63 afterPanic false memory usage: {18127728 20070368 27628808 0 54988 18588 18127728 20414464 1433600 18980864 1433600 36400 557056 557056 171024 195552 1200 15600 1453886 4148568 843682 23048912 1765081093710896789 774328 [380060 62489 246600 85179 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] [1765081093669246110 1765081093677758590 1765081093691861889 1765081093710896789 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] 4 0 0.0412408031755346 true false [{0 0 0} {8 1192 400} {16 13675 4097} {24 1594 122} {32 5954 1733} {48 4325 519} {64 2391 743} {80 1016 391} {96 485 77} {112 14747 7440} {128 1427 709} {144 99 0} {160 1820 379} {176 108 0} {192 66 27} {208 403 14} {224 19 1} {240 26 1} {256 885 30} {288 60 10} {320 848 342} {352 17 1} {384 68 14} {416 148 4} {448 13 1} {480 11 0} {512 39 5} {576 30 4} {640 759 237} {704 17 0} {768 18 4} {896 128 7} {1024 34 2} {1152 21 6} {1280 478 109} {1408 7 1} {1536 9 2} {1792 71 2} {2048 7 0} {2304 10 2} {2688 172 45} {3072 10 2} {3200 3 0} {3456 1 0} {4096 128 1} {4864 3 0} {5376 58 12} {6144 4 0} {6528 0 0} {6784 0 0} {6912 0 0} {8192 166 0} {9472 7 1} {9728 0 0} {10240 1 0} {10880 13 3} {12288 2 0} {13568 0 0} {14336 150 0} {16384 1 0} {18432 1 1}]}, goroutine number:  83
+2025-12-07T04:18:13.734Z	INFO	logs/logger.go:38	[PeriodicInitManager] started periodic task, interval 1h0m0s
+2025-12-07T04:18:13.734Z	INFO	logs/logger.go:38	[PeriodicMetricsManager] started periodic task, interval 2h0m0s
+2025-12-07T04:18:13.734Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] started periodic rate limit control task, interval 10m0s
+2025-12-07T04:18:13.734Z	INFO	logs/logger.go:38	[PeriodicBatchMetricsManager] started, interval 1m0s
+2025-12-07T04:18:13.734Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] started, interval 1m0s
+2025-12-07T04:18:14.859Z	INFO	logs/logger.go:61	02176508109373100000000000000000000000000000000a4d3f3 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120712181465CEF5068A11B9665755
+2025-12-07T04:18:14.859Z	INFO	logs/logger.go:61	02176508109373100000000000000000000000000000000a4d3f3 exit when ppid changed is enabled
+2025-12-07T04:19:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:20:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:21:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:22:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:23:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:24:15.160Z	INFO	logs/logger.go:61	0217650814537310000000000000000000000000000000042f493 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207122415B62153D3A83F7C6FCAFD
+2025-12-07T04:24:15.160Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:25:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:26:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:27:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:28:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:28:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T04:29:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:30:14.981Z	INFO	logs/logger.go:61	021765081813731000000000000000000000000000000006693c3 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207123014F2C4B8192457B37C59C9
+2025-12-07T04:30:14.981Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:31:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:32:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:33:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:34:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:35:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:36:14.517Z	INFO	logs/logger.go:61	0217650821737310000000000000000000000000000000064ed03 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071236145743D443D2A8A17D75C1
+2025-12-07T04:36:14.517Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:37:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:38:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T04:38:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:39:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:40:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:41:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:42:14.248Z	INFO	logs/logger.go:61	021765082533731000000000000000000000000000000004064aa codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071242143BAF79E8C9FD432FEB37
+2025-12-07T04:42:14.249Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:43:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:44:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:45:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:46:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:47:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:48:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T04:48:14.611Z	INFO	logs/logger.go:61	021765082893731000000000000000000000000000000004ffd2e codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071248144CA986D465241B7EE9F4
+2025-12-07T04:48:14.612Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:49:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:50:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:51:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:52:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:53:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:54:14.683Z	INFO	logs/logger.go:61	021765083253731000000000000000000000000000000005e8583 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071254146B070F1BEE2B969B97BF
+2025-12-07T04:54:14.684Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:55:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:56:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:57:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:58:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T04:58:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T04:59:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:00:14.580Z	INFO	logs/logger.go:61	021765083613731000000000000000000000000000000002c20f0 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207130014DD888F0EEEBEC9FD96D4
+2025-12-07T05:00:14.580Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:01:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:02:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:03:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:04:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:05:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:06:14.820Z	INFO	logs/logger.go:61	02176508397373100000000000000000000000000000000e9168d codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207130614AEA01A3212EA9A9E6D1A
+2025-12-07T05:06:14.821Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:07:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:08:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:08:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T05:09:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:10:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:11:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:12:15.461Z	INFO	logs/logger.go:61	02176508433373100000000000000000000000000000000f7d1b9 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071312156A9FD7FDE74E8B9526AC
+2025-12-07T05:12:15.461Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:13:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:14:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:15:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:16:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:17:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:18:13.732Z	INFO	logs/logger.go:38	[PeriodicInitManager] executePeriodicInit
+2025-12-07T05:18:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T05:18:14.583Z	INFO	logs/logger.go:61	021765084693731000000000000000000000000000000004f6abf codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120713181475158A6C32FDD54041AE
+2025-12-07T05:18:14.583Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:19:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:20:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:21:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:22:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:23:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:24:14.314Z	INFO	logs/logger.go:61	02176508505373100000000000000000000000000000000ab13e0 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120713241455A01E4874A4136B7690
+2025-12-07T05:24:14.314Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:25:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:26:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:27:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:28:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:28:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T05:29:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:30:14.692Z	INFO	logs/logger.go:61	02176508541373100000000000000000000000000000000d345c2 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207133014E75DB3EB7655AF68A6D5
+2025-12-07T05:30:14.692Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:31:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:32:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:33:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:34:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:35:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:36:14.820Z	INFO	logs/logger.go:61	02176508577373100000000000000000000000000000000a9f8b9 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207133614DA722BF56506C1947252
+2025-12-07T05:36:14.820Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:37:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:38:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:38:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T05:39:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:40:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:41:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:42:15.454Z	INFO	logs/logger.go:61	021765086133731000000000000000000000000000000009ef355 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207134215049F0586E0F0F23B4EB2
+2025-12-07T05:42:15.454Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:43:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:44:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:45:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:46:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:47:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:48:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T05:48:14.510Z	INFO	logs/logger.go:61	0217650864937310000000000000000000000000000000072cf78 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207134814C0646AA12ED84C9A44FA
+2025-12-07T05:48:14.510Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:49:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:50:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:51:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:52:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:53:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:54:15.711Z	INFO	logs/logger.go:61	02176508685373100000000000000000000000000000000fbb6b7 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207135415A94B399F80135377BA7F
+2025-12-07T05:54:15.711Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:55:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:56:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:57:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:58:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T05:58:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T05:59:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:00:14.672Z	INFO	logs/logger.go:61	021765087213732000000000000000000000000000000008f3e96 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207140014CC44CDD11399F0476871
+2025-12-07T06:00:14.672Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:01:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:02:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:03:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:04:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:05:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:06:15.076Z	INFO	logs/logger.go:61	02176508757373100000000000000000000000000000000fcbd3a codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207140614742B67BAC5277F0848D8
+2025-12-07T06:06:15.076Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:07:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:08:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:08:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T06:09:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:10:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:11:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:12:17.513Z	INFO	logs/logger.go:61	02176508793373100000000000000000000000000000000ffd701 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207141216C9149B06B0295A9E5B58
+2025-12-07T06:12:17.513Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:13:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:14:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:15:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:16:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:17:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:18:13.731Z	INFO	logs/logger.go:38	[PeriodicInitManager] executePeriodicInit
+2025-12-07T06:18:13.731Z	INFO	logs/logger.go:38	[PeriodicMetricsManager] userID is empty, do not metric
+2025-12-07T06:18:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T06:18:14.508Z	INFO	logs/logger.go:61	021765088293731000000000000000000000000000000003850c5 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071418148D0483F9947514605B49
+2025-12-07T06:18:14.508Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:19:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:20:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:21:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:22:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:23:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:24:14.679Z	INFO	logs/logger.go:61	0217650886537310000000000000000000000000000000091aee5 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120714241456DA1AB14D948BA5C9F3
+2025-12-07T06:24:14.680Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:25:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:26:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:27:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:28:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:28:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T06:29:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:30:14.830Z	INFO	logs/logger.go:61	021765089013731000000000000000000000000000000007cec90 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207143014D4A52FB5C269E1DD40BD
+2025-12-07T06:30:14.830Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:31:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:32:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:33:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:34:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:35:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:36:14.672Z	INFO	logs/logger.go:61	02176508937373100000000000000000000000000000000ce6cf4 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207143614359FF9BDA87E61647D0E
+2025-12-07T06:36:14.672Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:37:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:38:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:38:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T06:39:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:40:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:41:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:42:14.339Z	INFO	logs/logger.go:61	02176508973373100000000000000000000000000000000ccdaf0 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207144214686F70047AADC247B95D
+2025-12-07T06:42:14.340Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:43:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:44:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:45:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:46:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:47:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:48:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T06:48:14.543Z	INFO	logs/logger.go:61	02176509009373100000000000000000000000000000000184de2 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207144814A10997BF59E98CA79B48
+2025-12-07T06:48:14.544Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:49:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:50:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:51:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:52:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:53:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:54:14.958Z	INFO	logs/logger.go:61	021765090453732000000000000000000000000000000003a989f codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207145414923AF9782BA31970C51C
+2025-12-07T06:54:14.958Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:55:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:56:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:57:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:58:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T06:58:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T06:59:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:00:14.520Z	INFO	logs/logger.go:61	0217650908137310000000000000000000000000000000015159f codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207150014F64968C50F0ECDB9D151
+2025-12-07T07:00:14.520Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:01:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:02:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:03:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:04:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:05:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:06:15.882Z	INFO	logs/logger.go:61	021765091173731000000000000000000000000000000009d7d75 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120715061426F5A76F4269116264BD
+2025-12-07T07:06:15.882Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:07:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:08:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:08:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T07:09:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:10:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:11:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:12:14.831Z	INFO	logs/logger.go:61	021765091533731000000000000000000000000000000007d2106 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120715121440743EC0CD30BF158C27
+2025-12-07T07:12:14.831Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:13:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:14:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:15:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:16:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:17:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:18:13.731Z	INFO	logs/logger.go:38	[PeriodicInitManager] executePeriodicInit
+2025-12-07T07:18:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T07:18:14.321Z	INFO	logs/logger.go:61	021765091893731000000000000000000000000000000006ce80c codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207151814D8811A07EDD0A28475CA
+2025-12-07T07:18:14.321Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:19:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:20:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:21:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:22:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:23:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:24:14.506Z	INFO	logs/logger.go:61	021765092253731000000000000000000000000000000003e4734 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207152414170A661F583FD954B759
+2025-12-07T07:24:14.506Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:25:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:26:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:27:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:28:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:28:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T07:29:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:30:15.023Z	INFO	logs/logger.go:61	02176509261373100000000000000000000000000000000486971 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207153014BD9E13D010546DBD639C
+2025-12-07T07:30:15.023Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:31:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:32:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:33:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:34:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:35:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:36:14.409Z	INFO	logs/logger.go:61	02176509297373100000000000000000000000000000000d4c62d codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071536140E1DF2F30DE325949FA3
+2025-12-07T07:36:14.410Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:37:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:38:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:38:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T07:39:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:40:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:41:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:42:15.177Z	INFO	logs/logger.go:61	021765093333731000000000000000000000000000000002eee89 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207154215479114316C6493850452
+2025-12-07T07:42:15.177Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:43:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:44:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:45:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:46:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:47:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:48:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T07:48:14.912Z	INFO	logs/logger.go:61	021765093693731000000000000000000000000000000008819c0 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207154814288414D340F47A65941D
+2025-12-07T07:48:14.912Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:49:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:50:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:51:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:52:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:53:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:54:14.436Z	INFO	logs/logger.go:61	02176509405373200000000000000000000000000000000ae1151 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071554147EBF44F9FF1B8DA8D91A
+2025-12-07T07:54:14.436Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:55:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:56:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:57:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:58:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T07:58:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T07:59:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:00:15.682Z	INFO	logs/logger.go:61	0217650944137310000000000000000000000000000000038b832 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071600156BFC041658C13C4AE425
+2025-12-07T08:00:15.683Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:01:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:02:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:03:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:04:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:05:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:06:15.410Z	INFO	logs/logger.go:61	02176509477373100000000000000000000000000000000363de7 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207160615EEEE328815B45EE95B7C
+2025-12-07T08:06:15.410Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:07:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:08:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:08:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T08:09:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:10:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:11:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:12:14.544Z	INFO	logs/logger.go:61	021765095133731000000000000000000000000000000008e6276 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071612142EAD01770EF3DE6FA24B
+2025-12-07T08:12:14.544Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:13:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:14:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:15:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:16:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:17:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:18:13.732Z	INFO	logs/logger.go:38	[PeriodicInitManager] executePeriodicInit
+2025-12-07T08:18:13.732Z	INFO	logs/logger.go:38	[PeriodicMetricsManager] userID is empty, do not metric
+2025-12-07T08:18:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T08:18:15.267Z	INFO	logs/logger.go:61	02176509549373100000000000000000000000000000000d487aa codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071618147FF5CD60D0835B4A34F7
+2025-12-07T08:18:15.267Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:19:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:20:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:21:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:22:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:23:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:24:15.733Z	INFO	logs/logger.go:61	02176509585373100000000000000000000000000000000527c11 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071624153BAF79E8C9FD4352077B
+2025-12-07T08:24:15.734Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:25:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:26:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:27:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:28:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:28:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T08:29:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:30:14.422Z	INFO	logs/logger.go:61	02176509621373100000000000000000000000000000000a4f60e codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207163014D8DC36BAD1E739CE1B7C
+2025-12-07T08:30:14.422Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:31:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:32:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:33:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:34:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:35:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:36:14.830Z	INFO	logs/logger.go:61	02176509657373100000000000000000000000000000000f69df5 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120716361485F31A7ADD42844B1CB3
+2025-12-07T08:36:14.830Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:37:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:38:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:38:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T08:39:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:40:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:41:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:42:14.365Z	INFO	logs/logger.go:61	02176509693373100000000000000000000000000000000c0e30b codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120716421484A7591B35E8690C1F89
+2025-12-07T08:42:14.365Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:43:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:44:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:45:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:46:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:47:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:48:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T08:48:14.932Z	INFO	logs/logger.go:61	0217650972937310000000000000000000000000000000039e481 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207164814DB2F559CB0ADE4B563B0
+2025-12-07T08:48:14.933Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:49:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:50:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:51:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:52:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:53:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:54:15.310Z	INFO	logs/logger.go:61	021765097653732000000000000000000000000000000004b4c9b codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071654154F417B77D4AF07D17831
+2025-12-07T08:54:15.311Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:55:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:56:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:57:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:58:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T08:58:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T08:59:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:00:14.748Z	INFO	logs/logger.go:61	0217650980137310000000000000000000000000000000065316f codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071700146FB95894AB92BD91C783
+2025-12-07T09:00:14.749Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:01:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:02:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:03:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:04:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:05:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:06:14.593Z	INFO	logs/logger.go:61	02176509837373100000000000000000000000000000000704da1 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071706146C45D86B26860BE128E1
+2025-12-07T09:06:14.593Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:07:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:08:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:08:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T09:09:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:10:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:11:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:12:14.693Z	INFO	logs/logger.go:61	02176509873373200000000000000000000000000000000cae503 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071712143FBECF4C7C1ABF933910
+2025-12-07T09:12:14.693Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:13:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:14:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:15:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:16:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:17:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:18:13.732Z	INFO	logs/logger.go:38	[PeriodicInitManager] executePeriodicInit
+2025-12-07T09:18:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T09:18:15.218Z	INFO	logs/logger.go:61	02176509909373100000000000000000000000000000000393315 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207171815E7E600349E31325567C9
+2025-12-07T09:18:15.218Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:19:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:20:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:21:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:22:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:23:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:24:14.812Z	INFO	logs/logger.go:61	02176509945373100000000000000000000000000000000d71f3a codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071724143B9AF24534CE4BBEA30F
+2025-12-07T09:24:14.812Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:25:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:26:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:27:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:28:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:28:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T09:29:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:30:14.634Z	INFO	logs/logger.go:61	02176509981373100000000000000000000000000000000117918 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071730145AFCCFD5FDE1808CF4F5
+2025-12-07T09:30:14.634Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:31:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:32:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:33:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:34:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:35:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:36:14.942Z	INFO	logs/logger.go:61	021765100173731000000000000000000000000000000002c38fc codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207173614D66DB3BFFF833C4BED80
+2025-12-07T09:36:14.942Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:37:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:38:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:38:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T09:39:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:40:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:41:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:42:14.574Z	INFO	logs/logger.go:61	02176510053373100000000000000000000000000000000a0d490 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120717421421896D9C435202C62F54
+2025-12-07T09:42:14.574Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:43:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:44:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:45:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:46:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:47:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:48:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T09:48:14.806Z	INFO	logs/logger.go:61	021765100893731000000000000000000000000000000005a6e06 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207174814495F9C63981D91D283CA
+2025-12-07T09:48:14.807Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:49:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:50:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:51:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:52:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:53:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:54:15.003Z	INFO	logs/logger.go:61	02176510125373100000000000000000000000000000000e9ffb5 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207175414527C86DA873B0B1E9D27
+2025-12-07T09:54:15.003Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:55:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:56:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:57:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:58:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T09:58:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T09:59:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:00:14.755Z	INFO	logs/logger.go:61	02176510161373100000000000000000000000000000000811cf6 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207180014DA875F5FD6973878B690
+2025-12-07T10:00:14.755Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:01:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:02:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:03:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:04:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:05:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:06:14.643Z	INFO	logs/logger.go:61	02176510197373100000000000000000000000000000000d7d5ab codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071806142279E1A01B4FF29340BC
+2025-12-07T10:06:14.643Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:07:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:08:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:08:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T10:09:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:10:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:11:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:12:15.371Z	INFO	logs/logger.go:61	021765102333731000000000000000000000000000000006cf7f5 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207181215F59810D50046897C7234
+2025-12-07T10:12:15.371Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:13:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:14:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:15:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:16:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:17:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:18:13.732Z	INFO	logs/logger.go:38	[PeriodicInitManager] executePeriodicInit
+2025-12-07T10:18:13.732Z	INFO	logs/logger.go:38	[PeriodicMetricsManager] userID is empty, do not metric
+2025-12-07T10:18:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T10:18:14.528Z	INFO	logs/logger.go:61	021765102693732000000000000000000000000000000007b4bf4 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207181814DB2F559CB0ADE4BEDE7E
+2025-12-07T10:18:14.528Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:19:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:20:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:21:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:22:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:23:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:24:14.557Z	INFO	logs/logger.go:61	021765103053731000000000000000000000000000000004d878a codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207182414241E6A0940EFF8D8DF6B
+2025-12-07T10:24:14.557Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:25:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:26:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:27:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:28:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:28:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T10:29:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:30:15.236Z	INFO	logs/logger.go:61	0217651034137310000000000000000000000000000000035e6f3 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207183015015A015F274D486A41C5
+2025-12-07T10:30:15.236Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:31:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:32:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:33:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:34:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:35:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:36:14.682Z	INFO	logs/logger.go:61	0217651037737310000000000000000000000000000000069eb8d codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071836149F8A54CBD8BF5A2AF7D1
+2025-12-07T10:36:14.682Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:37:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:38:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:38:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T10:39:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:40:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:41:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:42:14.569Z	INFO	logs/logger.go:61	02176510413373100000000000000000000000000000000b5952d codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120718421429A8A5C6CABFF9CFF315
+2025-12-07T10:42:14.569Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:43:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:44:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:45:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:46:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:47:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:48:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T10:48:14.487Z	INFO	logs/logger.go:61	0217651044937310000000000000000000000000000000088ad7b codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120718481446D7F0C4C91CF1BEEB85
+2025-12-07T10:48:14.487Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:49:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:50:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:51:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:52:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:53:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:54:14.614Z	INFO	logs/logger.go:61	021765104853731000000000000000000000000000000004f7956 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207185414B6D181F03B99BE5C8A27
+2025-12-07T10:54:14.614Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:55:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:56:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:57:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:58:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T10:58:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T10:59:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:00:15.165Z	INFO	logs/logger.go:61	021765105213731000000000000000000000000000000001691c0 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207190015C719EF1FD41032BB7DF0
+2025-12-07T11:00:15.166Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:01:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:02:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:03:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:04:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:05:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:06:14.411Z	INFO	logs/logger.go:61	021765105573731000000000000000000000000000000001ade37 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071906142E8B02D03DDFBBFF5D68
+2025-12-07T11:06:14.411Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:07:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:08:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:08:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T11:09:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:10:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:11:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:12:14.904Z	INFO	logs/logger.go:61	021765105933731000000000000000000000000000000004696c4 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207191214AF6E581BBF407D2F232E
+2025-12-07T11:12:14.904Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:13:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:14:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:15:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:16:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:17:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:18:13.732Z	INFO	logs/logger.go:38	[PeriodicInitManager] executePeriodicInit
+2025-12-07T11:18:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T11:18:14.543Z	INFO	logs/logger.go:61	02176510629373200000000000000000000000000000000b1f21d codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071918146E0A63D3730DFA71CA8F
+2025-12-07T11:18:14.543Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:19:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:20:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:21:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:22:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:23:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:24:14.544Z	INFO	logs/logger.go:61	02176510665373100000000000000000000000000000000fc47ea codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071924144CA986D465241BA83241
+2025-12-07T11:24:14.544Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:25:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:26:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:27:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:28:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:28:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T11:29:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:30:14.766Z	INFO	logs/logger.go:61	0217651070137310000000000000000000000000000000015bf75 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071930142AB9D3C06925DDF3E58F
+2025-12-07T11:30:14.767Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:31:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:32:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:33:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:34:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:35:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:36:14.744Z	INFO	logs/logger.go:61	02176510737373200000000000000000000000000000000ad5d8b codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207193614AEEEA1A3EEAAA1B20A0F
+2025-12-07T11:36:14.744Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:37:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:38:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:38:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T11:39:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:40:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:41:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:42:15.011Z	INFO	logs/logger.go:61	0217651077337310000000000000000000000000000000047573e codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512071942144070A8E11D36337DFFC0
+2025-12-07T11:42:15.011Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:43:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:44:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:45:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:46:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:47:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:48:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T11:48:16.098Z	INFO	logs/logger.go:61	02176510809373100000000000000000000000000000000c34c44 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207194814CF5F6191926E3172C148
+2025-12-07T11:48:16.098Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:49:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:50:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:51:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:52:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:53:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:54:14.933Z	INFO	logs/logger.go:61	0217651084537310000000000000000000000000000000069cdd3 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120719541414E9A43A19DBB19524C1
+2025-12-07T11:54:14.934Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:55:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:56:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:57:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:58:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T11:58:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T11:59:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:00:14.367Z	INFO	logs/logger.go:61	02176510881373100000000000000000000000000000000a7d7f9 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120720001471162DDE7AA820884D49
+2025-12-07T12:00:14.367Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:01:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:02:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:03:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:04:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:05:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:06:14.716Z	INFO	logs/logger.go:61	021765109173731000000000000000000000000000000008d2f91 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512072006143477D4F0603DF4A9CC42
+2025-12-07T12:06:14.716Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:07:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:08:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:08:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T12:09:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:10:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:11:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:12:14.536Z	INFO	logs/logger.go:61	02176510953373200000000000000000000000000000000c82b55 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207201214DBE64203ED1AEFBBC3E7
+2025-12-07T12:12:14.536Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:13:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:14:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:15:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:16:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:17:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:18:13.732Z	INFO	logs/logger.go:38	[PeriodicInitManager] executePeriodicInit
+2025-12-07T12:18:13.732Z	INFO	logs/logger.go:38	[PeriodicMetricsManager] userID is empty, do not metric
+2025-12-07T12:18:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T12:18:14.828Z	INFO	logs/logger.go:61	0217651098937310000000000000000000000000000000026bdc5 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512072018147EDA2BCA8B93D6CC91E3
+2025-12-07T12:18:14.828Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:19:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:20:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:21:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:22:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:23:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:24:14.331Z	INFO	logs/logger.go:61	02176511025373100000000000000000000000000000000dd70e4 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207202414803FD28362E131B49C5E
+2025-12-07T12:24:14.334Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:25:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:26:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:27:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:28:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:28:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T12:29:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:30:14.412Z	INFO	logs/logger.go:61	0217651106137310000000000000000000000000000000057198f codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512072030145AD7AF51E36D94D585E5
+2025-12-07T12:30:14.412Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:31:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:32:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:33:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:34:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:35:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:36:14.641Z	INFO	logs/logger.go:61	02176511097373100000000000000000000000000000000345ac9 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512072036147ACC0DAC08785DC90567
+2025-12-07T12:36:14.641Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:37:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:38:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:38:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T12:39:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:40:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:41:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:42:14.501Z	INFO	logs/logger.go:61	02176511133373100000000000000000000000000000000bd50c8 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120720421415DEACCF1F499AD3B33C
+2025-12-07T12:42:14.501Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:43:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:44:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:45:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:46:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:47:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:48:13.731Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T12:48:15.221Z	INFO	logs/logger.go:61	02176511169373100000000000000000000000000000000944a47 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 2025120720481506F3FE3B1B81FC9B8C80
+2025-12-07T12:48:15.221Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:49:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:50:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:51:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:52:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:53:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:54:15.198Z	INFO	logs/logger.go:61	02176511205373100000000000000000000000000000000de88cd codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512072054159330FDE8FC3E3413674B
+2025-12-07T12:54:15.198Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:55:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:56:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:57:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:58:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T12:58:13.732Z	INFO	logs/logger.go:38	[PeriodicRateLimitControlManager] client or userID is empty, skip
+2025-12-07T12:59:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T13:00:14.546Z	INFO	logs/logger.go:61	021765112413731000000000000000000000000000000001277e6 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 20251207210014B7D67E0F42D77BE8A721
+2025-12-07T13:00:14.546Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T13:01:13.732Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T13:02:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T13:03:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T13:04:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T13:05:13.731Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
+2025-12-07T13:06:14.407Z	INFO	logs/logger.go:61	0217651127737310000000000000000000000000000000018dea8 codekg feature gate config is fetch for , map[enable_batch_index:true enable_disk_io_optimize:true enable_indexing_completion_check:false enable_interaction_graph:true enable_periodic_init:true enable_periodic_rate_limit_control:true enable_v2_chunking_method:true enable_v3_chunking_method:false exit_when_ppid_changed:true force_local_embedding:true periodic_disk_occupation_metrics:true test:false use_embedding_db_v2:true use_rag_context_bank:true use_v2_ignore:true use_v2_split_embedding_api:true], log id: 202512072106147A5A81A3AA78CF761250
+2025-12-07T13:06:14.408Z	INFO	logs/logger.go:38	[PeriodicUploadFilesLimitManager] client or userID or config is empty, skip
