@@ -99,3 +99,6 @@ test_reports/
 
 # Documentation builds
 docs/_build/
+
+# Marscode IDE files (large binaries)
+.marscode/

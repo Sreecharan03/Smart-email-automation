@@ -7,7 +7,7 @@
 import qdrant_client
 from qdrant_client.models import (
     Distance, VectorParams, PointStruct, Filter, 
-    FieldCondition, SearchRequest, UpdateResult
+    FieldCondition, MatchValue
 )
 from typing import List, Dict, Any, Optional, Tuple
 import uuid
@@ -206,9 +206,9 @@ class QdrantService:
         return successful, failed
     
     def search_similar_vectors(self, query_vector: List[float], 
-                              limit: int = 10,
-                              score_threshold: float = 0.5,
-                              metadata_filter: Optional[Dict] = None) -> List[VectorSearchResult]:
+                            limit: int = 10,
+                            score_threshold: float = 0.5,
+                            metadata_filter: Optional[Dict] = None) -> List[VectorSearchResult]:
         """
         Search for similar vectors in Qdrant
         
@@ -222,62 +222,90 @@ class QdrantService:
             List[VectorSearchResult]: Search results with metadata
         """
         try:
-            # Build search request
-            search_params = {
-                "collection_name": self.collection_name,
-                "query_vector": query_vector,
-                "limit": limit,
-                "score_threshold": score_threshold
-            }
+            logger.info(f"Searching for similar vectors with limit {limit}, threshold {score_threshold}")
             
-            # Add metadata filter if provided
+            # Build filter if provided
+            query_filter = None
             if metadata_filter:
-                # Build Qdrant filter from metadata_filter dict
-                # Example: {"field_name": "subject"} or {"sender_email": "user@example.com"}
                 conditions = []
                 for key, value in metadata_filter.items():
-                    conditions.append(
-                        FieldCondition(key=key, match={"value": value})
-                    )
+                    conditions.append(FieldCondition(key=key, match=MatchValue(value=value)))
                 
                 if conditions:
-                    search_params["query_filter"] = Filter(must=conditions)
+                    query_filter = Filter(must=conditions)
             
-            # Perform search
-            search_results = self.client.search(
-                collection_name=search_params["collection_name"],
-                query_vector=search_params["query_vector"],
-                limit=search_params["limit"],
-                score_threshold=search_params["score_threshold"],
-                query_filter=search_params.get("query_filter")
-            )
+            # Perform search with API compatibility across qdrant-client versions.
+            # Newer versions use `query_points`; older versions use `search`.
+            if hasattr(self.client, "query_points"):
+                query_response = self.client.query_points(
+                    collection_name=self.collection_name,
+                    query=query_vector,
+                    limit=limit,
+                    score_threshold=score_threshold,
+                    query_filter=query_filter,
+                    with_payload=True
+                )
+                search_results = getattr(query_response, "points", [])
+            elif hasattr(self.client, "search"):
+                search_results = self.client.search(
+                    collection_name=self.collection_name,
+                    query_vector=query_vector,
+                    limit=limit,
+                    score_threshold=score_threshold,
+                    query_filter=query_filter,
+                    with_payload=True
+                )
+            else:
+                raise AttributeError("Qdrant client has neither 'query_points' nor 'search'")
+            
+            logger.info(f"Qdrant returned {len(search_results)} raw results")
             
             # Convert to our result format
             results = []
             for hit in search_results:
-                # Get additional email data from database
-                email_data = self._get_email_data_by_vector_id(hit.id)
-                
-                if email_data:
-                    result = VectorSearchResult(
-                        message_id=email_data['message_id'],
-                        external_message_id=email_data['external_message_id'],
-                        score=hit.score,
-                        subject=email_data['subject'],
-                        snippet=email_data['snippet'],
-                        sender_email=email_data['sender_email'],
-                        date_sent=email_data['date_sent'],
-                        metadata=hit.payload
-                    )
-                    results.append(result)
+                try:
+                    # Access hit attributes (ScoredPoint object)
+                    point_id = getattr(hit, "id", None)
+                    score = float(getattr(hit, "score", 0.0))
+                    payload = getattr(hit, "payload", {}) or {}
+                    if point_id is None:
+                        logger.warning("Skipping search hit without point id")
+                        continue
+                    
+                    logger.debug(f"Processing hit {point_id} with score {score}")
+                    
+                    # Get additional email data from database using vector_id
+                    email_data = self._get_email_data_by_vector_id(str(point_id))
+                    
+                    if email_data:
+                        # Create VectorSearchResult object
+                        result = VectorSearchResult(
+                            message_id=email_data['message_id'],
+                            external_message_id=email_data['external_message_id'],
+                            score=score,
+                            subject=email_data['subject'],
+                            snippet=email_data['snippet'],
+                            sender_email=email_data['sender_email'],
+                            date_sent=email_data['date_sent'],
+                            metadata=payload
+                        )
+                        results.append(result)
+                        logger.debug(f"Added result: {email_data['subject'][:50]}...")
+                    else:
+                        logger.warning(f"No email data found for vector_id: {point_id}")
+                        
+                except Exception as hit_error:
+                    logger.error(f"Error processing search hit: {hit_error}")
+                    continue
             
-            logger.info(f"Vector search returned {len(results)} results")
+            logger.info(f"Vector search returned {len(results)} final results")
             return results
             
         except Exception as e:
             logger.error(f"Vector search failed: {e}")
-            return []
-    
+            logger.error(f"Collection: {self.collection_name}")
+            logger.error(f"Query vector dimensions: {len(query_vector)}")
+            return []    
     def sync_embeddings_to_qdrant(self, limit: int = 100) -> Dict[str, Any]:
         """
         Sync embedding records from database to Qdrant

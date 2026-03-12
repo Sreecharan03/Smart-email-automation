@@ -179,6 +179,20 @@ class AppConfig(BaseSettings):
         if len(v) < 32:
             raise ValueError("Secret key must be at least 32 characters")
         return v
+
+    @field_validator('debug', mode='before')
+    @classmethod
+    def validate_debug_flag(cls, v):
+        """Allow common string forms for debug, including 'release'."""
+        if isinstance(v, bool):
+            return v
+        if isinstance(v, str):
+            normalized = v.strip().lower()
+            if normalized in {"1", "true", "yes", "on", "debug", "development", "dev"}:
+                return True
+            if normalized in {"0", "false", "no", "off", "release", "prod", "production"}:
+                return False
+        return v
     
     @field_validator('encryption_key')
     @classmethod

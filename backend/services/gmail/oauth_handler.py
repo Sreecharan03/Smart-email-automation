@@ -8,8 +8,10 @@ import os
 import json
 import uuid
 import secrets
+import base64
+import hashlib
 from datetime import datetime, timezone, timedelta
-from typing import Optional, Dict, Any, Tuple
+from typing import Optional, Dict, Any, Tuple, List
 from urllib.parse import urlencode, parse_qs, urlparse
 
 # Google OAuth and API imports
@@ -22,7 +24,7 @@ from googleapiclient.errors import HttpError
 # Database and encryption imports
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from cryptography.fernet import Fernet
+from cryptography.fernet import Fernet, InvalidToken
 
 # Configuration import
 import sys
@@ -139,7 +141,6 @@ class GmailOAuthHandler:
         print(f"📍 Using Gmail redirect URI: {self.redirect_uri}")
 
         # Required OAuth scopes for email access
-                # Required OAuth scopes for email access
         self.scopes = [
             'https://www.googleapis.com/auth/gmail.readonly',   # Read emails
             'https://www.googleapis.com/auth/gmail.send',       # Send emails
@@ -152,27 +153,15 @@ class GmailOAuthHandler:
 
         # Initialize encryption for token storage
         try:
-            # Ensure the encryption key is valid for Fernet
-            encryption_key = self.config.encryption_key.encode()
-            if len(encryption_key) != 32:
-                import base64
-                import hashlib
-                # Hash the key to get 32 bytes, then base64 encode for Fernet
-                key_hash = hashlib.sha256(encryption_key).digest()
-                fernet_key = base64.urlsafe_b64encode(key_hash)
-                self.fernet = Fernet(fernet_key)
-            else:
-                self.fernet = Fernet(encryption_key)
+            self.fernet, self._decrypt_fernets = self._build_fernet_instances(
+                getattr(self.config, "encryption_key", "")
+            )
+            print("🔐 Token encryption initialized")
         except Exception as e:
             print(f"⚠️ Warning: Could not initialize encryption with provided key: {e}")
-            # Fallback to a default key (in production, this should be handled properly)
-            import base64
-            import hashlib
-            fallback_key = hashlib.sha256(
-                b'your_encryption_key_here_32_char_fallback'
-            ).digest()
-            fernet_key = base64.urlsafe_b64encode(fallback_key)
-            self.fernet = Fernet(fernet_key)
+            # Hard fallback to deterministic legacy-compatible key.
+            fallback_secret = "your_encryption_key_here_32_char_fallback"
+            self.fernet, self._decrypt_fernets = self._build_fernet_instances(fallback_secret)
 
         # Database connection parameters
         self.db_params = get_supabase_connection_params(self.config)
@@ -429,7 +418,7 @@ class GmailOAuthHandler:
                 token_uri="https://oauth2.googleapis.com/token",
                 client_id=self.client_id,
                 client_secret=self.client_secret,
-                scopes=json.loads(account_data['granted_scopes'] or '[]'),
+                scopes=self._parse_granted_scopes(account_data.get('granted_scopes')),
             )
 
             # Refresh the token
@@ -468,19 +457,21 @@ class GmailOAuthHandler:
         try:
             # Get account data from database
             account_data = self._get_account_from_db(account_id)
-            if not account_data or not account_data['is_active']:
+            if not account_data:
+                print(f"❌ Account {account_id} not found in email_accounts")
+                return None
+            if not account_data['is_active']:
+                print(f"❌ Account {account_id} is inactive")
                 return None
 
             # Decrypt tokens
             access_token = self._decrypt_token(account_data['access_token'])
             refresh_token = self._decrypt_token(account_data['refresh_token'])
+            if not access_token or not refresh_token:
+                raise ValueError("Missing decrypted OAuth tokens")
 
             # Parse token expiry
-            token_expiry = None
-            if account_data['token_expiry']:
-                token_expiry = datetime.fromisoformat(
-                    account_data['token_expiry'].replace('Z', '+00:00')
-                )
+            token_expiry = self._parse_token_expiry(account_data.get('token_expiry'))
 
             # Create credentials object
             credentials = Credentials(
@@ -489,16 +480,27 @@ class GmailOAuthHandler:
                 token_uri="https://oauth2.googleapis.com/token",
                 client_id=self.client_id,
                 client_secret=self.client_secret,
-                scopes=json.loads(account_data['granted_scopes'] or '[]'),
+                scopes=self._parse_granted_scopes(account_data.get('granted_scopes')),
                 expiry=token_expiry,
             )
 
-            # Check if token needs refresh (expires within 5 minutes)
-            if credentials.expired or (
-                credentials.expiry
-                and credentials.expiry
-                < datetime.now(timezone.utc) + timedelta(minutes=5)
-            ):
+            # Check if token needs refresh (expires within 5 minutes).
+            # Use naive UTC values because google-auth internals compare against
+            # naive UTC and can raise on mixed aware/naive datetimes.
+            expiry_utc = self._normalize_utc_datetime(credentials.expiry)
+            refresh_deadline = datetime.utcnow() + timedelta(minutes=5)
+
+            needs_refresh = False
+            try:
+                needs_refresh = bool(credentials.expired)
+            except TypeError:
+                # Some google-auth versions can raise here if expiry tz is mixed.
+                needs_refresh = False
+
+            if not needs_refresh and expiry_utc is not None:
+                needs_refresh = expiry_utc < refresh_deadline
+
+            if needs_refresh:
                 print(f"🔄 Token expired, refreshing for account: {account_id}")
                 request = Request()
                 credentials.refresh(request)
@@ -518,7 +520,7 @@ class GmailOAuthHandler:
             return credentials
 
         except Exception as e:
-            print(f"❌ Error getting valid credentials: {e}")
+            print(f"❌ Error getting valid credentials ({type(e).__name__}): {e!r}")
             return None
 
     def revoke_account_access(self, account_id: int) -> bool:
@@ -563,7 +565,122 @@ class GmailOAuthHandler:
 
     def _decrypt_token(self, encrypted_token: str) -> str:
         """Decrypt token from storage"""
-        return self.fernet.decrypt(encrypted_token.encode()).decode()
+        if not encrypted_token:
+            return ""
+        token_bytes = encrypted_token.encode()
+        for candidate in self._decrypt_fernets:
+            try:
+                return candidate.decrypt(token_bytes).decode()
+            except InvalidToken:
+                continue
+        raise InvalidToken("Token could not be decrypted with configured or legacy keys")
+
+    def _build_fernet_instances(self, encryption_secret: str) -> Tuple[Fernet, List[Fernet]]:
+        """
+        Build encryption/decryption Fernet instances.
+        Supports:
+        1) Raw Fernet key (urlsafe-base64, 32-byte decoded)
+        2) Arbitrary secret string -> SHA-256 -> Fernet key
+        3) Legacy unified_app style for 32-char secrets:
+           base64.urlsafe_b64encode(secret.encode())
+        Also includes known legacy fallback keys for decrypt compatibility.
+        """
+        candidates: List[bytes] = []
+        seen = set()
+
+        def add_candidate(key_bytes: bytes):
+            if key_bytes and key_bytes not in seen:
+                seen.add(key_bytes)
+                candidates.append(key_bytes)
+
+        provided = (encryption_secret or "").strip()
+        if provided:
+            direct_key = self._try_parse_fernet_key(provided)
+            if direct_key:
+                add_candidate(direct_key)
+
+            # Legacy unified_app behavior:
+            # if len(secret)==32 -> base64(urlsafe, raw secret bytes)
+            if len(provided) == 32:
+                add_candidate(base64.urlsafe_b64encode(provided.encode("utf-8")))
+
+            add_candidate(self._derive_fernet_key(provided.encode("utf-8")))
+
+        # Legacy default fallback used by previous buggy builds.
+        add_candidate(self._derive_fernet_key(b"your_encryption_key_here_32_char_fallback"))
+        # Legacy fallback used by unified_app.py
+        add_candidate(self._derive_fernet_key(b"unified_email_assistant_encryption_fallback_key_2024"))
+        # Unified_app default 32-char key path
+        add_candidate(base64.urlsafe_b64encode(b"your_encryption_key_here_32_char"))
+
+        if not candidates:
+            raise ValueError("No valid encryption key candidates generated")
+
+        fernet_instances = [Fernet(k) for k in candidates]
+        return fernet_instances[0], fernet_instances
+
+    def _parse_token_expiry(self, raw_expiry: Any) -> Optional[datetime]:
+        """Parse token expiry from DB value (datetime or ISO string) into naive UTC."""
+        if not raw_expiry:
+            return None
+        try:
+            if isinstance(raw_expiry, datetime):
+                parsed = raw_expiry
+            elif isinstance(raw_expiry, str):
+                parsed = datetime.fromisoformat(raw_expiry.replace('Z', '+00:00'))
+            else:
+                return None
+
+            # Normalize to naive UTC for compatibility with google-auth internals.
+            if parsed.tzinfo is not None:
+                parsed = parsed.astimezone(timezone.utc).replace(tzinfo=None)
+            return parsed
+        except Exception as e:
+            print(f"⚠️ Warning: Could not parse token_expiry={raw_expiry!r}: {e}")
+            return None
+
+    def _normalize_utc_datetime(self, value: Any) -> Optional[datetime]:
+        """Normalize a datetime-like value to naive UTC."""
+        if value is None:
+            return None
+        if isinstance(value, datetime):
+            if value.tzinfo is None:
+                return value
+            return value.astimezone(timezone.utc).replace(tzinfo=None)
+        return None
+
+    def _parse_granted_scopes(self, raw_scopes: Any) -> List[str]:
+        """Parse granted scopes from JSON text or native list."""
+        if not raw_scopes:
+            return []
+        if isinstance(raw_scopes, list):
+            return [str(s) for s in raw_scopes]
+        if isinstance(raw_scopes, tuple) or isinstance(raw_scopes, set):
+            return [str(s) for s in raw_scopes]
+        if isinstance(raw_scopes, str):
+            try:
+                parsed = json.loads(raw_scopes)
+                if isinstance(parsed, list):
+                    return [str(s) for s in parsed]
+            except Exception:
+                # Fallback for non-JSON single scope strings
+                return [raw_scopes] if raw_scopes.strip() else []
+        return []
+
+    def _derive_fernet_key(self, secret: bytes) -> bytes:
+        """Derive a Fernet key from arbitrary secret bytes."""
+        return base64.urlsafe_b64encode(hashlib.sha256(secret).digest())
+
+    def _try_parse_fernet_key(self, maybe_key: str) -> Optional[bytes]:
+        """Return the input as bytes if it is already a valid Fernet key."""
+        try:
+            key_bytes = maybe_key.encode("utf-8")
+            decoded = base64.urlsafe_b64decode(key_bytes)
+            if len(decoded) == 32:
+                return key_bytes
+        except Exception:
+            return None
+        return None
 
     def _store_oauth_state(self, user_id: str, state_token: str):
         """Store OAuth state temporarily for CSRF protection"""

@@ -21,7 +21,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../email-assistant')))
 
 from config import get_config, get_supabase_connection_params
-from .qdrant_service import QdrantService
+from qdrant_service import QdrantService
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)

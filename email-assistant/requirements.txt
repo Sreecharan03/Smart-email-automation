@@ -11,8 +11,10 @@
 fastapi
 uvicorn[standard]
 pydantic
+pydantic-settings
 python-multipart
 python-jose[cryptography]
+cryptography
 passlib[bcrypt]
 
 # ====================================

@@ -13,13 +13,15 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Optional, List, Dict, Any, Tuple
 import base64
+import uuid
 
 # FastAPI imports
-from fastapi import FastAPI, Request, HTTPException, Depends, Query, status
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi import FastAPI, Request, HTTPException, Depends, Query, status, Body
+from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 # Google OAuth and API imports
 from google.auth.transport.requests import Request as GoogleRequest
@@ -136,6 +138,37 @@ class SendEmailRequest(BaseModel):
     body_html: Optional[str]
     reply_to_message_id: Optional[str] = None
     thread_id: Optional[str] = None
+
+class SearchRequest(BaseModel):
+    """Request model for smart email search"""
+    query: str = Field(..., min_length=1, max_length=500)
+    account_id: Optional[int] = None
+    max_results: int = Field(default=20, ge=1, le=100)
+
+class CreateDraftRequest(BaseModel):
+    """Request model for creating AI-generated drafts"""
+    original_message_id: int = Field(..., ge=1)
+    user_instructions: str = ""
+    tone: str = "professional"
+    length: str = "medium"
+    include_greeting: bool = True
+    include_closing: bool = True
+    signature: str = ""
+    custom_instructions: str = ""
+
+class EditDraftRequest(BaseModel):
+    """Request model for editing existing draft content"""
+    subject: Optional[str] = None
+    body_text: Optional[str] = None
+    body_html: Optional[str] = None
+    tone: Optional[str] = None
+    length: Optional[str] = None
+
+class ForceSyncRequest(BaseModel):
+    """Request model for forcing email sync"""
+    account_id: Optional[int] = None
+    max_emails: int = Field(default=50, ge=1, le=500)
+    query: str = "in:inbox"
 
 # ====================================
 # GMAIL OAUTH HANDLER CLASS
@@ -659,15 +692,15 @@ class GmailService:
             message_id = gmail_message['id']
             thread_id = gmail_message.get('threadId')
             labels = gmail_message.get('labelIds', [])
-            snippet = gmail_message.get('snippet', '')
-            
+            snippet = gmail_message.get('snippet', '').replace('\x00', '')
+
             headers = {}
             payload = gmail_message.get('payload', {})
             for header in payload.get('headers', []):
                 headers[header['name'].lower()] = header['value']
-            
+
             sender_email, sender_name = self._parse_email_address(headers.get('from', ''))
-            subject = headers.get('subject', '')
+            subject = headers.get('subject', '').replace('\x00', '')
             date_str = headers.get('date', '')
             
             date_sent = self._parse_email_date(date_str)
@@ -772,9 +805,9 @@ class GmailService:
                 body = part.get('body', {})
                 
                 if mime_type == 'text/plain' and body.get('data'):
-                    body_plain = base64.urlsafe_b64decode(body['data']).decode('utf-8')
+                    body_plain = base64.urlsafe_b64decode(body['data']).decode('utf-8', errors='replace').replace('\x00', '')
                 elif mime_type == 'text/html' and body.get('data'):
-                    body_html = base64.urlsafe_b64decode(body['data']).decode('utf-8')
+                    body_html = base64.urlsafe_b64decode(body['data']).decode('utf-8', errors='replace').replace('\x00', '')
                 
                 for subpart in part.get('parts', []):
                     extract_from_part(subpart)
@@ -865,7 +898,21 @@ def create_unified_app():
         )
     except Exception as e:
         print(f"⚠️ CORS configuration error: {e}")
-    
+
+    # Serve static frontend files
+    _static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+    if os.path.exists(_static_dir):
+        app.mount("/static", StaticFiles(directory=_static_dir), name="static")
+        print("✅ Static files mounted at /static")
+
+    @app.middleware("http")
+    async def no_cache_static(request: Request, call_next):
+        response = await call_next(request)
+        path = request.url.path
+        if path.startswith("/static/js/") or path.startswith("/static/css/"):
+            response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+        return response
+
     # Security scheme
     security = HTTPBearer(auto_error=False)
     
@@ -888,6 +935,106 @@ def create_unified_app():
             return psycopg2.connect(**db_params)
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Database connection failed: {str(e)}")
+
+    def _resolve_active_account(cursor, user_id: str, account_id: Optional[int] = None) -> Optional[Dict[str, Any]]:
+        """Resolve an active Gmail account for the given user."""
+        if account_id is not None:
+            cursor.execute(
+                """
+                SELECT id, email_address, display_name
+                FROM email_accounts
+                WHERE id = %s AND user_id = %s AND provider = 'gmail' AND is_active = TRUE
+                LIMIT 1
+                """,
+                (account_id, user_id)
+            )
+            account = cursor.fetchone()
+            if account:
+                return account
+            return None
+
+        cursor.execute(
+            """
+            SELECT id, email_address, display_name
+            FROM email_accounts
+            WHERE user_id = %s AND provider = 'gmail' AND is_active = TRUE
+            ORDER BY connected_at DESC
+            LIMIT 1
+            """,
+            (user_id,)
+        )
+        return cursor.fetchone()
+
+    def _extract_email_address(value: str) -> str:
+        """Normalize recipient values like 'Name <email@domain.com>' to plain email."""
+        if not value:
+            return ""
+        match = re.search(r"<([^>]+)>", value)
+        if match:
+            return match.group(1).strip()
+        return value.strip()
+
+    def _serialize_datetime(value: Any) -> Any:
+        if isinstance(value, datetime):
+            return value.isoformat()
+        return value
+
+    def _normalize_json_value(value: Any) -> Any:
+        """Normalize JSONB values that may come back as text in some drivers."""
+        if isinstance(value, str):
+            try:
+                return json.loads(value)
+            except Exception:
+                return value
+        return value
+
+    def _serialize_draft_record(row: Dict[str, Any]) -> Dict[str, Any]:
+        """Convert draft DB row to API-safe payload."""
+        payload = dict(row)
+        for key in ["created_at", "updated_at", "sent_at"]:
+            payload[key] = _serialize_datetime(payload.get(key))
+        payload["draft_uuid"] = str(payload.get("draft_uuid")) if payload.get("draft_uuid") else None
+        payload["safety_issues"] = _normalize_json_value(payload.get("safety_issues"))
+        payload["user_edits"] = _normalize_json_value(payload.get("user_edits"))
+        payload["ai_confidence"] = float(payload["ai_confidence"]) if payload.get("ai_confidence") is not None else None
+        return payload
+
+    def _log_system_event(
+        event_type: str,
+        message: str,
+        user_id: str,
+        account_id: Optional[int] = None,
+        metadata: Optional[Dict[str, Any]] = None,
+        level: str = "INFO",
+        execution_time_ms: Optional[float] = None
+    ):
+        """
+        Best-effort event logging; failures here should not break API endpoints.
+        """
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        """
+                        INSERT INTO system_logs (
+                            log_level, event_type, message, user_id,
+                            account_id, execution_time_ms, metadata, created_at
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, NOW())
+                        """,
+                        (
+                            level,
+                            event_type,
+                            message,
+                            user_id,
+                            account_id,
+                            execution_time_ms,
+                            json.dumps(metadata or {}),
+                        ),
+                    )
+                    connection.commit()
+        except Exception:
+            # Logging should never block primary API operations.
+            pass
     
     # ====================================
     # ROOT ENDPOINTS
@@ -895,171 +1042,14 @@ def create_unified_app():
     
     @app.get("/")
     async def root():
-        """Root endpoint with unified interface"""
-        return HTMLResponse(content="""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Unified AI Email Assistant</title>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <style>
-                body {
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 20px;
-                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                    color: white;
-                    min-height: 100vh;
-                }
-                .container {
-                    background: rgba(255, 255, 255, 0.1);
-                    border-radius: 15px;
-                    padding: 40px;
-                    backdrop-filter: blur(10px);
-                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-                }
-                h1 {
-                    text-align: center;
-                    margin-bottom: 10px;
-                    font-size: 2.5em;
-                }
-                .subtitle {
-                    text-align: center;
-                    margin-bottom: 40px;
-                    opacity: 0.9;
-                    font-size: 1.2em;
-                }
-                .features {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-                    gap: 20px;
-                    margin: 30px 0;
-                }
-                .feature-card {
-                    background: rgba(255, 255, 255, 0.1);
-                    border-radius: 10px;
-                    padding: 20px;
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                }
-                .feature-card h3 {
-                    margin-top: 0;
-                    color: #fff;
-                }
-                .btn {
-                    display: inline-block;
-                    padding: 12px 24px;
-                    background: #4CAF50;
-                    color: white;
-                    text-decoration: none;
-                    border-radius: 25px;
-                    transition: all 0.3s ease;
-                    margin: 10px 5px;
-                    border: none;
-                    cursor: pointer;
-                    font-size: 16px;
-                }
-                .btn:hover {
-                    background: #45a049;
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-                }
-                .btn-secondary {
-                    background: #2196F3;
-                }
-                .btn-secondary:hover {
-                    background: #1976D2;
-                }
-                .status {
-                    text-align: center;
-                    margin: 20px 0;
-                    padding: 15px;
-                    border-radius: 10px;
-                    background: rgba(255, 255, 255, 0.1);
-                }
-                .success { color: #4CAF50; }
-                .warning { color: #FFC107; }
-                .error { color: #f44336; }
-                .code-block {
-                    background: rgba(0, 0, 0, 0.3);
-                    border-radius: 5px;
-                    padding: 15px;
-                    margin: 10px 0;
-                    font-family: 'Courier New', monospace;
-                    overflow-x: auto;
-                }
-                .grid-2 {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 20px;
-                    margin: 20px 0;
-                }
-                @media (max-width: 768px) {
-                    .grid-2 { grid-template-columns: 1fr; }
-                    body { padding: 10px; }
-                    h1 { font-size: 2em; }
-                }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <h1>📧 Unified AI Email Assistant</h1>
-                <div class="subtitle">Gmail OAuth Authentication & Email Management</div>
-                
-                <div class="status">
-                    <div>🟢 System Status: <span class="success">All Services Running</span></div>
-                    <div>🔗 API Base: <strong>/api</strong> | 📖 Docs: <strong>/docs</strong></div>
-                </div>
-                
-                <div class="features">
-                    <div class="feature-card">
-                        <h3>🔐 Gmail OAuth</h3>
-                        <p>Connect any Gmail account securely using OAuth 2.0</p>
-                        <div class="code-block">GET /api/auth/gmail</div>
-                        <a href="/api/auth/gmail" class="btn">Connect Gmail</a>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <h3>📧 Recent Emails</h3>
-                        <p>Fetch your latest emails from connected Gmail account</p>
-                        <div class="code-block">GET /recent-emails</div>
-                        <a href="/recent-emails" class="btn">View Recent Emails</a>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <h3>📊 Account Status</h3>
-                        <p>Check authentication status and connected accounts</p>
-                        <div class="code-block">GET /api/auth/status</div>
-                        <a href="/api/auth/status" class="btn btn-secondary">Check Status</a>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <h3>📚 API Documentation</h3>
-                        <p>Interactive API documentation and testing interface</p>
-                        <div class="code-block">GET /docs</div>
-                        <a href="/docs" class="btn btn-secondary">View Docs</a>
-                    </div>
-                </div>
-                
-                <div style="text-align: center; margin: 30px 0;">
-                    <h3>🚀 Quick Test</h3>
-                    <p>Test the Gmail OAuth and Email fetching:</p>
-                    <div class="code-block">
-# 1. Connect Gmail account
-curl -X GET "http://localhost:8000/api/auth/gmail" -H "X-User-ID: test_user"
-
-# 2. Check account status  
-curl -X GET "http://localhost:8000/api/auth/status" -H "X-User-ID: test_user"
-
-# 3. Fetch recent emails
-curl -X GET "http://localhost:8000/recent-emails?user_id=test_user&limit=10"
-                    </div>
-                </div>
-            </div>
-        </body>
-        </html>
-        """)
+        """Serve the main UI (HTML/CSS/JS frontend)"""
+        index_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "index.html")
+        if os.path.exists(index_path):
+            return FileResponse(
+                index_path,
+                headers={"Cache-Control": "no-store, no-cache, must-revalidate"}
+            )
+        return JSONResponse({"message": "AI Email Assistant API", "docs": "/docs", "ui": "static/index.html not found"})
     
     # ====================================
     # AUTHENTICATION ENDPOINTS
@@ -1585,6 +1575,959 @@ curl -X GET "http://localhost:8000/recent-emails?user_id=test_user&limit=10"
                 "error_details": str(e),
                 "suggestion": "Check if Gmail account is properly connected and authenticated"
             }, status_code=500)
+
+    # ====================================
+    # SEARCH ENDPOINTS
+    # ====================================
+
+    @app.post("/api/search")
+    async def search_emails(request: SearchRequest, user_id: str = Depends(get_user_id)):
+        """Run smart search workflow for the user's active account."""
+        start_time = time.time()
+
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    account = _resolve_active_account(cursor, user_id, request.account_id)
+                    if not account:
+                        raise HTTPException(
+                            status_code=404,
+                            detail="No active Gmail account found for this user"
+                        )
+
+            from backend.workflows.search_workflow import SmartSearchWorkflow
+            workflow = SmartSearchWorkflow()
+            result = workflow.search_emails(
+                query=request.query,
+                account_id=account["id"],
+                max_results=request.max_results
+            )
+
+            elapsed_ms = (time.time() - start_time) * 1000
+            _log_system_event(
+                event_type="search_query",
+                message=f"Search executed: {request.query[:200]}",
+                user_id=user_id,
+                account_id=account["id"],
+                execution_time_ms=elapsed_ms,
+                metadata={
+                    "query": request.query,
+                    "max_results": request.max_results,
+                    "search_type": result.get("search_type"),
+                    "success": result.get("success"),
+                    "total_results": result.get("total_results"),
+                    "errors": result.get("errors", []),
+                },
+            )
+
+            return JSONResponse(content={
+                "success": result.get("success", False),
+                "account_id": account["id"],
+                "account_email": account.get("email_address"),
+                "query": request.query,
+                "max_results": request.max_results,
+                "search_type": result.get("search_type"),
+                "total_results": result.get("total_results"),
+                "results": result.get("results", []),
+                "processing_time": result.get("processing_time"),
+                "statistics": result.get("statistics", {}),
+                "errors": result.get("errors", []),
+            })
+
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Smart search failed: {str(e)}"
+            )
+
+    @app.get("/api/search/recent")
+    async def get_recent_searches(
+        limit: int = Query(default=10, ge=1, le=100),
+        user_id: str = Depends(get_user_id)
+    ):
+        """Return recent search history from system logs."""
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT id, account_id, message, metadata, created_at
+                        FROM system_logs
+                        WHERE user_id = %s AND event_type = 'search_query'
+                        ORDER BY created_at DESC
+                        LIMIT %s
+                        """,
+                        (user_id, limit),
+                    )
+                    rows = cursor.fetchall()
+
+            searches = []
+            for row in rows:
+                metadata = _normalize_json_value(row.get("metadata")) or {}
+                searches.append({
+                    "id": row.get("id"),
+                    "account_id": row.get("account_id"),
+                    "query": metadata.get("query") or row.get("message"),
+                    "search_type": metadata.get("search_type"),
+                    "total_results": metadata.get("total_results"),
+                    "success": metadata.get("success"),
+                    "created_at": _serialize_datetime(row.get("created_at")),
+                })
+
+            return JSONResponse(content={
+                "success": True,
+                "count": len(searches),
+                "recent_searches": searches,
+            })
+        except Exception as e:
+            # If system_logs table is unavailable, return graceful empty state.
+            return JSONResponse(content={
+                "success": True,
+                "count": 0,
+                "recent_searches": [],
+                "warning": f"Recent search history unavailable: {str(e)}",
+            })
+
+    # ====================================
+    # DRAFT ENDPOINTS
+    # ====================================
+
+    @app.post("/api/drafts")
+    async def create_draft(request: CreateDraftRequest, user_id: str = Depends(get_user_id)):
+        """
+        Create and store a new AI draft.
+        This endpoint intentionally stops before approval/send.
+        """
+        start_time = time.time()
+
+        try:
+            # Validate original message ownership.
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT em.id, em.account_id
+                        FROM email_messages em
+                        JOIN email_accounts ea ON ea.id = em.account_id
+                        WHERE em.id = %s AND ea.user_id = %s
+                        LIMIT 1
+                        """,
+                        (request.original_message_id, user_id),
+                    )
+                    message_row = cursor.fetchone()
+                    if not message_row:
+                        raise HTTPException(
+                            status_code=404,
+                            detail="Original message not found for this user"
+                        )
+
+            from backend.workflows.draft_workflow import (
+                EmailDraftWorkflow,
+                DraftState,
+                DraftPreferences,
+                DraftTone,
+                DraftLength,
+                DraftType,
+            )
+
+            tone_value = (request.tone or "professional").strip().lower()
+            length_value = (request.length or "medium").strip().lower()
+
+            try:
+                preferences = DraftPreferences(
+                    tone=DraftTone(tone_value),
+                    length=DraftLength(length_value),
+                    include_greeting=request.include_greeting,
+                    include_closing=request.include_closing,
+                    signature=request.signature,
+                    custom_instructions=request.custom_instructions,
+                )
+            except ValueError as e:
+                raise HTTPException(status_code=400, detail=f"Invalid tone/length: {str(e)}")
+
+            combined_instructions = (request.user_instructions or "").strip()
+            if (request.custom_instructions or "").strip():
+                combined_instructions = (
+                    f"{combined_instructions}\n\nAdditional instructions: {request.custom_instructions.strip()}"
+                ).strip()
+
+            workflow = EmailDraftWorkflow()
+            state = DraftState(
+                original_message_id=request.original_message_id,
+                user_instructions=combined_instructions,
+                draft_type=DraftType.REPLY,
+                preferences=preferences,
+            )
+
+            # Run only draft-generation phase (no approval/send).
+            state = workflow._analyze_email_context(state)
+            if not state.errors:
+                state = workflow._generate_ai_draft(state)
+            if not state.errors:
+                state = workflow._perform_safety_check(state)
+            if not state.errors:
+                state = workflow._save_draft_to_database(state)
+
+            if state.draft_id:
+                with get_database_connection() as connection:
+                    with connection.cursor() as cursor:
+                        cursor.execute(
+                            """
+                            UPDATE email_drafts
+                            SET approval_status = 'pending',
+                                is_sent = FALSE,
+                                sent_at = NULL,
+                                sent_message_id = NULL,
+                                updated_at = NOW()
+                            WHERE id = %s
+                            """,
+                            (state.draft_id,),
+                        )
+                        connection.commit()
+
+            elapsed_ms = (time.time() - start_time) * 1000
+            _log_system_event(
+                event_type="draft_create",
+                message=f"Draft created for message {request.original_message_id}",
+                user_id=user_id,
+                account_id=message_row["account_id"],
+                execution_time_ms=elapsed_ms,
+                metadata={
+                    "original_message_id": request.original_message_id,
+                    "draft_id": state.draft_id,
+                    "success": len(state.errors) == 0 and state.draft_id is not None,
+                    "errors": state.errors,
+                },
+            )
+
+            return JSONResponse(content={
+                "success": len(state.errors) == 0 and state.draft_id is not None,
+                "draft_id": state.draft_id,
+                "account_id": state.account_id,
+                "original_message_id": request.original_message_id,
+                "approval_status": "pending",
+                "draft_subject": state.draft_subject,
+                "draft_text": state.generated_draft,
+                "safety_check": {
+                    "is_safe": state.safety_check.is_safe,
+                    "flagged_content": state.safety_check.flagged_content,
+                    "recommendations": state.safety_check.recommendations,
+                },
+                "processing_time": round(time.time() - start_time, 3),
+                "errors": state.errors,
+            })
+
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to create draft: {str(e)}")
+
+    @app.get("/api/drafts")
+    async def list_drafts(
+        account_id: Optional[int] = Query(default=None),
+        approval_status: Optional[str] = Query(default=None),
+        limit: int = Query(default=20, ge=1, le=100),
+        offset: int = Query(default=0, ge=0),
+        user_id: str = Depends(get_user_id),
+    ):
+        """List drafts for the current user."""
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    base_where = ["ea.user_id = %s"]
+                    params: List[Any] = [user_id]
+
+                    if account_id is not None:
+                        base_where.append("d.account_id = %s")
+                        params.append(account_id)
+
+                    if approval_status:
+                        base_where.append("LOWER(d.approval_status) = LOWER(%s)")
+                        params.append(approval_status)
+
+                    where_clause = " AND ".join(base_where)
+
+                    cursor.execute(
+                        f"""
+                        SELECT
+                            d.id, d.draft_uuid, d.account_id, d.original_message_id,
+                            d.recipient_email, d.subject, d.body_text, d.body_html,
+                            d.draft_type, d.tone, d.length, d.ai_model_used,
+                            d.ai_confidence, d.user_edits, d.edit_count, d.approval_status,
+                            d.is_sent, d.sent_at, d.sent_message_id,
+                            d.safety_check_passed, d.safety_issues,
+                            d.created_at, d.updated_at,
+                            ea.email_address AS account_email
+                        FROM email_drafts d
+                        JOIN email_accounts ea ON ea.id = d.account_id
+                        WHERE {where_clause}
+                        ORDER BY d.created_at DESC
+                        LIMIT %s OFFSET %s
+                        """,
+                        (*params, limit, offset),
+                    )
+                    rows = cursor.fetchall()
+
+                    cursor.execute(
+                        f"""
+                        SELECT COUNT(*) AS total
+                        FROM email_drafts d
+                        JOIN email_accounts ea ON ea.id = d.account_id
+                        WHERE {where_clause}
+                        """,
+                        tuple(params),
+                    )
+                    total_count = cursor.fetchone()["total"]
+
+            return JSONResponse(content={
+                "success": True,
+                "total": int(total_count),
+                "limit": limit,
+                "offset": offset,
+                "drafts": [_serialize_draft_record(row) for row in rows],
+            })
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to list drafts: {str(e)}")
+
+    @app.get("/api/drafts/{draft_id}")
+    async def get_draft(draft_id: int, user_id: str = Depends(get_user_id)):
+        """Fetch a specific draft by ID."""
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT
+                            d.id, d.draft_uuid, d.account_id, d.original_message_id,
+                            d.recipient_email, d.subject, d.body_text, d.body_html,
+                            d.draft_type, d.tone, d.length, d.ai_model_used,
+                            d.ai_confidence, d.user_edits, d.edit_count, d.approval_status,
+                            d.is_sent, d.sent_at, d.sent_message_id,
+                            d.safety_check_passed, d.safety_issues,
+                            d.created_at, d.updated_at,
+                            ea.email_address AS account_email
+                        FROM email_drafts d
+                        JOIN email_accounts ea ON ea.id = d.account_id
+                        WHERE d.id = %s AND ea.user_id = %s
+                        LIMIT 1
+                        """,
+                        (draft_id, user_id),
+                    )
+                    row = cursor.fetchone()
+
+            if not row:
+                raise HTTPException(status_code=404, detail="Draft not found")
+
+            return JSONResponse(content={
+                "success": True,
+                "draft": _serialize_draft_record(row),
+            })
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to fetch draft: {str(e)}")
+
+    @app.post("/api/drafts/{draft_id}/approve")
+    async def approve_draft(draft_id: int, user_id: str = Depends(get_user_id)):
+        """Approve and send a draft via Gmail."""
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT d.*, ea.user_id
+                        FROM email_drafts d
+                        JOIN email_accounts ea ON ea.id = d.account_id
+                        WHERE d.id = %s AND ea.user_id = %s
+                        LIMIT 1
+                        """,
+                        (draft_id, user_id),
+                    )
+                    draft = cursor.fetchone()
+
+            if not draft:
+                raise HTTPException(status_code=404, detail="Draft not found")
+
+            if draft.get("is_sent"):
+                return JSONResponse(content={
+                    "success": True,
+                    "message": "Draft already sent",
+                    "draft_id": draft_id,
+                    "sent_message_id": draft.get("sent_message_id"),
+                })
+
+            recipient_email = _extract_email_address(draft.get("recipient_email", ""))
+            if "@" not in recipient_email:
+                raise HTTPException(status_code=400, detail="Draft recipient email is invalid")
+
+            from backend.services.gmail.gmail_service import (
+                GmailService as BackendGmailService,
+                SendEmailRequest as BackendSendEmailRequest,
+            )
+
+            gmail_service = BackendGmailService(draft["account_id"])
+            send_request = BackendSendEmailRequest(
+                to=[recipient_email],
+                cc=[],
+                bcc=[],
+                subject=draft.get("subject") or "Re: Your email",
+                body_text=draft.get("body_text") or "",
+                body_html=draft.get("body_html"),
+                reply_to_message_id=None,
+                thread_id=None,
+            )
+
+            sent_message_id = gmail_service.send_email(send_request)
+            if not sent_message_id:
+                raise HTTPException(status_code=502, detail="Failed to send approved draft via Gmail API")
+
+            with get_database_connection() as connection:
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        """
+                        UPDATE email_drafts
+                        SET approval_status = 'approved',
+                            is_sent = TRUE,
+                            sent_at = NOW(),
+                            sent_message_id = %s,
+                            updated_at = NOW()
+                        WHERE id = %s
+                        """,
+                        (sent_message_id, draft_id),
+                    )
+                    connection.commit()
+
+            _log_system_event(
+                event_type="draft_approved",
+                message=f"Draft approved and sent: {draft_id}",
+                user_id=user_id,
+                account_id=draft.get("account_id"),
+                metadata={"draft_id": draft_id, "sent_message_id": sent_message_id},
+            )
+
+            return JSONResponse(content={
+                "success": True,
+                "draft_id": draft_id,
+                "approval_status": "approved",
+                "is_sent": True,
+                "sent_message_id": sent_message_id,
+            })
+
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to approve draft: {str(e)}")
+
+    @app.post("/api/drafts/{draft_id}/reject")
+    async def reject_draft(draft_id: int, user_id: str = Depends(get_user_id)):
+        """Reject a draft."""
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT d.id, d.is_sent, d.account_id
+                        FROM email_drafts d
+                        JOIN email_accounts ea ON ea.id = d.account_id
+                        WHERE d.id = %s AND ea.user_id = %s
+                        LIMIT 1
+                        """,
+                        (draft_id, user_id),
+                    )
+                    draft = cursor.fetchone()
+                    if not draft:
+                        raise HTTPException(status_code=404, detail="Draft not found")
+                    if draft["is_sent"]:
+                        raise HTTPException(status_code=400, detail="Cannot reject an already-sent draft")
+
+                    cursor.execute(
+                        """
+                        UPDATE email_drafts
+                        SET approval_status = 'rejected',
+                            updated_at = NOW()
+                        WHERE id = %s
+                        """,
+                        (draft_id,),
+                    )
+                    connection.commit()
+
+            _log_system_event(
+                event_type="draft_rejected",
+                message=f"Draft rejected: {draft_id}",
+                user_id=user_id,
+                account_id=draft.get("account_id"),
+                metadata={"draft_id": draft_id},
+            )
+
+            return JSONResponse(content={
+                "success": True,
+                "draft_id": draft_id,
+                "approval_status": "rejected",
+            })
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to reject draft: {str(e)}")
+
+    @app.post("/api/drafts/{draft_id}/edit")
+    async def edit_draft(draft_id: int, request: EditDraftRequest, user_id: str = Depends(get_user_id)):
+        """Edit draft content and reset approval status to pending."""
+        change_set = {
+            "subject": request.subject,
+            "body_text": request.body_text,
+            "body_html": request.body_html,
+            "tone": request.tone,
+            "length": request.length,
+        }
+        effective_changes = {k: v for k, v in change_set.items() if v is not None}
+        if not effective_changes:
+            raise HTTPException(status_code=400, detail="No editable fields provided")
+
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT d.id, d.account_id, d.is_sent, d.user_edits
+                        FROM email_drafts d
+                        JOIN email_accounts ea ON ea.id = d.account_id
+                        WHERE d.id = %s AND ea.user_id = %s
+                        LIMIT 1
+                        """,
+                        (draft_id, user_id),
+                    )
+                    draft = cursor.fetchone()
+                    if not draft:
+                        raise HTTPException(status_code=404, detail="Draft not found")
+                    if draft["is_sent"]:
+                        raise HTTPException(status_code=400, detail="Cannot edit a sent draft")
+
+                    existing_user_edits = _normalize_json_value(draft.get("user_edits")) or {}
+                    if not isinstance(existing_user_edits, dict):
+                        existing_user_edits = {}
+                    history = existing_user_edits.get("history", [])
+                    if not isinstance(history, list):
+                        history = []
+
+                    edit_entry = {
+                        "edited_at": datetime.now(timezone.utc).isoformat(),
+                        "changes": effective_changes,
+                    }
+                    history.append(edit_entry)
+                    merged_user_edits = {
+                        "history": history,
+                        "last_edit": edit_entry,
+                    }
+
+                    update_fields = []
+                    params: List[Any] = []
+
+                    for field_name in ["subject", "body_text", "body_html", "tone", "length"]:
+                        value = effective_changes.get(field_name)
+                        if value is not None:
+                            update_fields.append(f"{field_name} = %s")
+                            params.append(value)
+
+                    update_fields.extend([
+                        "user_edits = %s",
+                        "edit_count = COALESCE(edit_count, 0) + 1",
+                        "approval_status = 'pending'",
+                        "updated_at = NOW()",
+                    ])
+                    params.append(json.dumps(merged_user_edits))
+                    params.append(draft_id)
+
+                    cursor.execute(
+                        f"""
+                        UPDATE email_drafts
+                        SET {', '.join(update_fields)}
+                        WHERE id = %s
+                        """,
+                        tuple(params),
+                    )
+                    connection.commit()
+
+                    cursor.execute(
+                        """
+                        SELECT
+                            d.id, d.draft_uuid, d.account_id, d.original_message_id,
+                            d.recipient_email, d.subject, d.body_text, d.body_html,
+                            d.draft_type, d.tone, d.length, d.ai_model_used,
+                            d.ai_confidence, d.user_edits, d.edit_count, d.approval_status,
+                            d.is_sent, d.sent_at, d.sent_message_id,
+                            d.safety_check_passed, d.safety_issues,
+                            d.created_at, d.updated_at,
+                            ea.email_address AS account_email
+                        FROM email_drafts d
+                        JOIN email_accounts ea ON ea.id = d.account_id
+                        WHERE d.id = %s AND ea.user_id = %s
+                        LIMIT 1
+                        """,
+                        (draft_id, user_id),
+                    )
+                    updated = cursor.fetchone()
+
+            _log_system_event(
+                event_type="draft_edited",
+                message=f"Draft edited: {draft_id}",
+                user_id=user_id,
+                account_id=draft.get("account_id"),
+                metadata={"draft_id": draft_id, "changes": list(effective_changes.keys())},
+            )
+
+            return JSONResponse(content={
+                "success": True,
+                "draft": _serialize_draft_record(updated),
+            })
+        except HTTPException:
+            raise
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to edit draft: {str(e)}")
+
+    # ====================================
+    # SYSTEM ENDPOINTS
+    # ====================================
+
+    @app.get("/api/stats")
+    async def get_system_stats(user_id: str = Depends(get_user_id)):
+        """Get user-scoped system statistics."""
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT
+                            COUNT(*) AS total_accounts,
+                            COUNT(*) FILTER (WHERE is_active = TRUE) AS active_accounts,
+                            MAX(last_sync_at) AS last_sync_at
+                        FROM email_accounts
+                        WHERE user_id = %s
+                        """,
+                        (user_id,),
+                    )
+                    accounts_stats = cursor.fetchone()
+
+                    cursor.execute(
+                        """
+                        SELECT COUNT(*) AS total_messages
+                        FROM email_messages em
+                        JOIN email_accounts ea ON ea.id = em.account_id
+                        WHERE ea.user_id = %s
+                        """,
+                        (user_id,),
+                    )
+                    message_stats = cursor.fetchone()
+
+                    cursor.execute(
+                        """
+                        SELECT
+                            COUNT(*) AS total_drafts,
+                            COUNT(*) FILTER (WHERE approval_status = 'pending') AS pending_drafts,
+                            COUNT(*) FILTER (WHERE approval_status = 'approved') AS approved_drafts,
+                            COUNT(*) FILTER (WHERE approval_status = 'rejected') AS rejected_drafts,
+                            COUNT(*) FILTER (WHERE is_sent = TRUE) AS sent_drafts
+                        FROM email_drafts d
+                        JOIN email_accounts ea ON ea.id = d.account_id
+                        WHERE ea.user_id = %s
+                        """,
+                        (user_id,),
+                    )
+                    draft_stats = cursor.fetchone()
+
+                    cursor.execute(
+                        """
+                        SELECT COUNT(*) AS total_searches
+                        FROM system_logs
+                        WHERE user_id = %s AND event_type = 'search_query'
+                        """,
+                        (user_id,),
+                    )
+                    search_stats = cursor.fetchone()
+
+            return JSONResponse(content={
+                "success": True,
+                "user_id": user_id,
+                "accounts": {
+                    "total": int(accounts_stats.get("total_accounts", 0)),
+                    "active": int(accounts_stats.get("active_accounts", 0)),
+                    "last_sync_at": _serialize_datetime(accounts_stats.get("last_sync_at")),
+                },
+                "messages": {
+                    "total": int(message_stats.get("total_messages", 0)),
+                },
+                "drafts": {
+                    "total": int(draft_stats.get("total_drafts", 0)),
+                    "pending": int(draft_stats.get("pending_drafts", 0)),
+                    "approved": int(draft_stats.get("approved_drafts", 0)),
+                    "rejected": int(draft_stats.get("rejected_drafts", 0)),
+                    "sent": int(draft_stats.get("sent_drafts", 0)),
+                },
+                "search": {
+                    "total_queries": int(search_stats.get("total_searches", 0)),
+                },
+                "generated_at": datetime.now(timezone.utc).isoformat(),
+            })
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to load stats: {str(e)}")
+
+    @app.get("/api/emails")
+    async def get_emails_from_db(
+        limit: int = 50,
+        user_id: str = Depends(get_user_id),
+    ):
+        """Return emails stored in DB (with real integer IDs for draft creation)."""
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    cursor.execute(
+                        """
+                        SELECT
+                            em.id, em.external_message_id, em.thread_id,
+                            em.sender_email, em.sender_name,
+                            em.subject, em.snippet,
+                            em.date_sent, em.is_read, em.is_important,
+                            em.has_attachments, em.labels, em.folder_name
+                        FROM email_messages em
+                        JOIN email_accounts ea ON ea.id = em.account_id
+                        WHERE ea.user_id = %s
+                        ORDER BY em.date_sent DESC NULLS LAST
+                        LIMIT %s
+                        """,
+                        (user_id, limit),
+                    )
+                    rows = cursor.fetchall()
+
+            emails = []
+            for r in rows:
+                emails.append({
+                    "id":            r["id"],
+                    "external_id":   r["external_message_id"],
+                    "thread_id":     r["thread_id"],
+                    "sender_email":  r["sender_email"],
+                    "sender_name":   r["sender_name"],
+                    "subject":       r["subject"],
+                    "snippet":       r["snippet"],
+                    "date_sent":     r["date_sent"].isoformat() if r["date_sent"] else None,
+                    "is_read":       r["is_read"],
+                    "is_important":  r["is_important"],
+                    "has_attachments": r["has_attachments"],
+                    "labels":        r["labels"] or [],
+                })
+
+            return JSONResponse(content={"emails": emails, "total": len(emails)})
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Failed to load emails: {str(e)}")
+
+    @app.post("/api/sync")
+    async def force_email_sync(
+        request: Optional[ForceSyncRequest] = Body(default=None),
+        user_id: str = Depends(get_user_id),
+    ):
+        """Force immediate Gmail sync for the selected active account."""
+        start_time = time.time()
+        if request is None:
+            request = ForceSyncRequest()
+
+        try:
+            with get_database_connection() as connection:
+                with connection.cursor(cursor_factory=RealDictCursor) as cursor:
+                    account = _resolve_active_account(cursor, user_id, request.account_id)
+                    if not account:
+                        raise HTTPException(
+                            status_code=404,
+                            detail="No active Gmail account found for this user"
+                        )
+
+            gmail_service = GmailService(account["id"])
+            account_info = gmail_service.get_account_info()
+            if not account_info:
+                raise HTTPException(
+                    status_code=401,
+                    detail="Unable to authenticate Gmail account for sync"
+                )
+
+            messages, next_page_token = gmail_service.fetch_messages(
+                max_results=request.max_emails,
+                query=request.query
+            )
+
+            stored = 0
+            updated = 0
+            processed = 0
+
+            def _sanitize(s):
+                """Remove null bytes that PostgreSQL rejects."""
+                if s is None:
+                    return None
+                return str(s).replace('\x00', '')
+
+            with get_database_connection() as connection:
+                with connection.cursor() as cursor:
+                    for msg in messages:
+                        processed += 1
+                        cursor.execute(
+                            """
+                            SELECT id
+                            FROM email_messages
+                            WHERE account_id = %s AND external_message_id = %s
+                            LIMIT 1
+                            """,
+                            (account["id"], msg.external_id),
+                        )
+                        existing = cursor.fetchone()
+
+                        recipients_json = json.dumps(msg.recipients or [])
+                        cc_json = json.dumps(msg.cc_recipients or [])
+                        bcc_json = json.dumps(msg.bcc_recipients or [])
+                        labels_json = json.dumps(msg.labels or [])
+                        date_received = datetime.now(timezone.utc)
+
+                        if existing:
+                            cursor.execute(
+                                """
+                                UPDATE email_messages
+                                SET thread_id = %s,
+                                    sender_email = %s,
+                                    sender_name = %s,
+                                    recipients = %s,
+                                    cc_recipients = %s,
+                                    bcc_recipients = %s,
+                                    subject = %s,
+                                    snippet = %s,
+                                    body_plain = %s,
+                                    body_html = %s,
+                                    date_sent = %s,
+                                    date_received = %s,
+                                    is_read = %s,
+                                    is_important = %s,
+                                    has_attachments = %s,
+                                    attachment_count = %s,
+                                    labels = %s,
+                                    folder_name = %s,
+                                    size_bytes = %s,
+                                    message_format = %s,
+                                    updated_at = NOW()
+                                WHERE id = %s
+                                """,
+                                (
+                                    _sanitize(msg.thread_id),
+                                    _sanitize(msg.sender_email),
+                                    _sanitize(msg.sender_name),
+                                    recipients_json,
+                                    cc_json,
+                                    bcc_json,
+                                    _sanitize(msg.subject),
+                                    _sanitize(msg.snippet),
+                                    _sanitize(msg.body_plain),
+                                    _sanitize(msg.body_html),
+                                    msg.date_sent,
+                                    date_received,
+                                    msg.is_read,
+                                    msg.is_important,
+                                    msg.has_attachments,
+                                    msg.attachment_count,
+                                    labels_json,
+                                    _sanitize(msg.folder_name),
+                                    msg.size_bytes,
+                                    "full",
+                                    existing[0],
+                                ),
+                            )
+                            updated += 1
+                        else:
+                            cursor.execute(
+                                """
+                                INSERT INTO email_messages (
+                                    account_id, message_uuid, external_message_id, thread_id,
+                                    sender_email, sender_name, recipients, cc_recipients, bcc_recipients,
+                                    subject, snippet, body_plain, body_html,
+                                    date_sent, date_received, is_read, is_important,
+                                    has_attachments, attachment_count, labels, folder_name,
+                                    size_bytes, message_format, is_processed, processing_error
+                                ) VALUES (
+                                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                                    %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+                                )
+                                """,
+                                (
+                                    account["id"],
+                                    str(uuid.uuid4()),
+                                    _sanitize(msg.external_id),
+                                    _sanitize(msg.thread_id),
+                                    _sanitize(msg.sender_email),
+                                    _sanitize(msg.sender_name),
+                                    recipients_json,
+                                    cc_json,
+                                    bcc_json,
+                                    _sanitize(msg.subject),
+                                    _sanitize(msg.snippet),
+                                    _sanitize(msg.body_plain),
+                                    _sanitize(msg.body_html),
+                                    msg.date_sent,
+                                    date_received,
+                                    msg.is_read,
+                                    msg.is_important,
+                                    msg.has_attachments,
+                                    msg.attachment_count,
+                                    labels_json,
+                                    _sanitize(msg.folder_name),
+                                    msg.size_bytes,
+                                    "full",
+                                    False,
+                                    None,
+                                ),
+                            )
+                            stored += 1
+
+                    cursor.execute(
+                        """
+                        UPDATE email_accounts
+                        SET last_sync_at = NOW(), updated_at = NOW()
+                        WHERE id = %s
+                        """,
+                        (account["id"],),
+                    )
+                    connection.commit()
+
+            elapsed_ms = (time.time() - start_time) * 1000
+            _log_system_event(
+                event_type="force_sync",
+                message=f"Force sync completed for account {account['id']}",
+                user_id=user_id,
+                account_id=account["id"],
+                execution_time_ms=elapsed_ms,
+                metadata={
+                    "processed": processed,
+                    "stored": stored,
+                    "updated": updated,
+                    "max_emails": request.max_emails,
+                    "query": request.query,
+                },
+            )
+
+            return JSONResponse(content={
+                "success": True,
+                "account_id": account["id"],
+                "account_email": account.get("email_address"),
+                "query": request.query,
+                "max_emails": request.max_emails,
+                "processed": processed,
+                "stored": stored,
+                "updated": updated,
+                "next_page_token": next_page_token,
+                "processing_time": round(time.time() - start_time, 3),
+                "gmail_messages_total": account_info.get("messages_total"),
+            })
+
+        except HTTPException:
+            raise
+        except Exception as e:
+            import traceback
+            print(f"❌ Force sync error: {e}")
+            traceback.print_exc()
+            raise HTTPException(status_code=500, detail=f"Force sync failed: {str(e)}")
     
     @app.get("/health")
     async def health():
@@ -1611,6 +2554,14 @@ curl -X GET "http://localhost:8000/recent-emails?user_id=test_user&limit=10"
                 "gmail_connect": "/api/auth/gmail",
                 "auth_status": "/api/auth/status",
                 "recent_emails": "/recent-emails",
+                "search": "/api/search",
+                "search_recent": "/api/search/recent",
+                "drafts": "/api/drafts",
+                "draft_approve": "/api/drafts/{draft_id}/approve",
+                "draft_reject": "/api/drafts/{draft_id}/reject",
+                "draft_edit": "/api/drafts/{draft_id}/edit",
+                "stats": "/api/stats",
+                "sync": "/api/sync",
                 "health": "/health"
             }
         })
